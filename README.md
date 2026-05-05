@@ -5,22 +5,22 @@ A personal Homebrew tap for tools and utilities.
 ## Installation
 
 ```bash
-brew tap strubio-ray/tap
+brew tap rubio-enterprises/tap
 ```
 
 ## Formulas
 
 | Formula | Description | Install |
 |---------|-------------|---------|
-| `marvin-relay` | Go relay server bridging Amazing Marvin webhooks to Apple Live Activities | `brew install strubio-ray/tap/marvin-relay` |
-| `clipssh` | Send clipboard screenshots to remote SSH hosts | `brew install strubio-ray/tap/clipssh` |
+| `marvin-relay` | Go relay server bridging Amazing Marvin webhooks to Apple Live Activities | `brew install rubio-enterprises/tap/marvin-relay` |
+| `clipssh` | Send clipboard screenshots to remote SSH hosts | `brew install rubio-enterprises/tap/clipssh` |
 
 ### marvin-relay
 
 Runs as a launchd service via `brew services`:
 
 ```bash
-brew install strubio-ray/tap/marvin-relay
+brew install rubio-enterprises/tap/marvin-relay
 brew services start marvin-relay
 brew services log marvin-relay
 ```
@@ -28,7 +28,7 @@ brew services log marvin-relay
 ### clipssh
 
 ```bash
-brew install strubio-ray/tap/clipssh
+brew install rubio-enterprises/tap/clipssh
 clipssh user@myserver
 ```
 
@@ -43,8 +43,8 @@ due to failing macOS Gatekeeper checks.
 | `qlmarkdown` | QLMarkdown | 1.0.24 | [sbarex/QLMarkdown](https://github.com/sbarex/QLMarkdown) |
 
 ```bash
-brew install --cask strubio-ray/tap/syntax-highlight
-brew install --cask strubio-ray/tap/qlmarkdown
+brew install --cask rubio-enterprises/tap/syntax-highlight
+brew install --cask rubio-enterprises/tap/qlmarkdown
 ```
 
 After installation, open **System Settings > Privacy & Security > Extensions >
@@ -55,7 +55,7 @@ Quick Look** to enable the extensions.
 ```bash
 brew update
 brew upgrade            # upgrades all installed formulas and casks
-brew livecheck --cask --tap strubio-ray/tap   # check for new upstream cask versions
+brew livecheck --cask --tap rubio-enterprises/tap   # check for new upstream cask versions
 ```
 
 Formula versions are bumped automatically when source repos push new tags.

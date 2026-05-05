@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Personal Homebrew tap (`strubio-ray/tap`) distributing:
+Personal Homebrew tap (`rubio-enterprises/tap`) distributing:
 - **Formulas** (`Formula/`): compiled software (`marvin-relay`, a Go relay server) and shell utilities (`clipssh`, clipboard-to-SSH tool)
 - **Casks** (`Casks/`): macOS apps (currently `qlmarkdown` and `syntax-highlight` — unsigned QuickLook extensions)
 
@@ -12,16 +12,16 @@ Personal Homebrew tap (`strubio-ray/tap`) distributing:
 
 ```bash
 # Lint & validate
-brew audit --formula --tap strubio-ray/tap
-brew audit --cask --tap strubio-ray/tap
-brew style strubio-ray/tap
+brew audit --formula --tap rubio-enterprises/tap
+brew audit --cask --tap rubio-enterprises/tap
+brew style rubio-enterprises/tap
 
 # Check for upstream version updates
-brew livecheck --tap strubio-ray/tap
-brew livecheck --cask --tap strubio-ray/tap
+brew livecheck --tap rubio-enterprises/tap
+brew livecheck --cask --tap rubio-enterprises/tap
 
 # Bump a cask version (writes locally, no PR)
-brew bump-cask-pr --write-only --no-audit --no-style "strubio-ray/tap/<cask-name>"
+brew bump-cask-pr --write-only --no-audit --no-style "rubio-enterprises/tap/<cask-name>"
 ```
 
 ## CI/CD
@@ -52,4 +52,4 @@ To update manually:
 1. Update `url` with the new tag in the formula file
 2. Download the new release tarball and compute `sha256`
 3. Update the `sha256` in the formula
-4. Run `brew audit --formula --tap strubio-ray/tap && brew style strubio-ray/tap`
+4. Run `brew audit --formula --tap rubio-enterprises/tap && brew style rubio-enterprises/tap`
