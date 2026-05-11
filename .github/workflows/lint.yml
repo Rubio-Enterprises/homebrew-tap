@@ -18,13 +18,13 @@ jobs:
           token: ${{ github.token }}
 
       - name: Audit formulas
-        run: brew audit --formula --tap strubio-ray/tap
+        run: brew audit --formula --tap rubio-enterprises/tap
 
       - name: Audit casks
-        run: brew audit --cask --tap strubio-ray/tap
+        run: brew audit --cask --tap rubio-enterprises/tap
 
       - name: Style check
-        run: brew style strubio-ray/tap
+        run: brew style rubio-enterprises/tap
 
       - name: Livecheck (casks)
-        run: brew livecheck --cask --tap strubio-ray/tap
+        run: brew livecheck --cask --tap rubio-enterprises/tap
