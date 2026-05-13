@@ -5,8 +5,8 @@ class Clipssh < Formula
   sha256 "aeb941aa52f09db07d93a873934ad4075a50c0788a42f49bc39d7c96880f8675"
   license "MIT"
 
-  depends_on :macos
   depends_on xcode: ["13.0", :build]
+  depends_on :macos
 
   def install
     inreplace "swift/Sources/clipssh-paste/main.swift",
