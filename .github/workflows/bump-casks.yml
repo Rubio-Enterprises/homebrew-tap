@@ -31,7 +31,8 @@ jobs:
 
       - name: Bump outdated casks (write-only)
         run: |
-          outdated=$(brew livecheck --tap rubio-enterprises/tap --json | jq -r '.[] | select(.version.outdated == true) | .cask')
+          outdated=$(brew livecheck --tap rubio-enterprises/tap --json \
+            | jq -r '.[] | select(.version.outdated == true) | .cask')
           if [ -z "$outdated" ]; then
             echo "All casks are up to date."
             exit 0
