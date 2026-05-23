@@ -1,0 +1,7 @@
+# Per-repo audit rule opt-outs honored by Rubio-Enterprises/standards check.sh.
+# One rule ID per line. Lines starting with `#` and blank lines ignored.
+
+# Bare archetype: Homebrew formula registry. README is a tap installation
+# pointer (`brew tap Rubio-Enterprises/homebrew-tap`), not a §6.11 product
+# README.
+README-BADGES-SENTINEL
