@@ -22,8 +22,8 @@ class MarvinRelay < Formula
     environment_variables PATH: std_service_path_env
   end
 
-  def post_install
-    (var/"marvin-relay").mkpath
+  post_install_steps do
+    mkdir_p "marvin-relay"
   end
 
   test do
