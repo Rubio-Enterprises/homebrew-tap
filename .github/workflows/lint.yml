@@ -7,7 +7,7 @@ on:
 
 jobs:
   lint:
-    runs-on: [self-hosted, macOS, ARM64]
+    runs-on: macos-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
