@@ -22,10 +22,6 @@ class MarvinRelay < Formula
     environment_variables PATH: std_service_path_env
   end
 
-  post_install_steps do
-    mkdir_p "marvin-relay"
-  end
-
   test do
     assert_match "marvin-relay #{version}", shell_output("#{bin}/marvin-relay --version")
   end
