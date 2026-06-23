@@ -1,20 +1,18 @@
 class Darfio < Formula
   desc "Opinionated CLI wrapper around fio that gets disk benchmarking right on macOS"
   homepage "https://github.com/Rubio-Enterprises/darfio"
-  version "1.0.0"
+  # darfio is a private repo, so anonymous release-asset downloads 404. Clone over
+  # SSH with the :git strategy (uses the operator's key — no token) and build from
+  # source, exactly like the other private formulae in this tap.
+  url "git@github.com:Rubio-Enterprises/darfio.git",
+      using: :git, tag: "v1.0.0", revision: "39bc82f2684ce22267b09afa681c72bcdda9b52c"
   license "MIT"
 
   depends_on "fio"
-
-  on_macos do
-    if Hardware::CPU.arm?
-      url "https://github.com/Rubio-Enterprises/darfio/releases/download/v1.0.0/darfio_strubio-v1.0.0_darwin_arm64.tar.gz"
-      sha256 "d5fabb9a199300970915182e1944eae17929a7690e5d56dc1a00473b751792e5"
-    end
-  end
+  depends_on "rust" => :build
 
   def install
-    bin.install "darfio"
+    system "cargo", "install", *std_cargo_args
   end
 
   test do
