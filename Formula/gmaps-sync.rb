@@ -16,7 +16,7 @@ class GmapsSync < Formula
     system "pnpm", "-r", "build"
     system "pnpm", "--filter", "@gmaps/cli", "deploy", "--prod", libexec
 
-    (bin/"places").write_env_script libexec/"dist/cli.js", PATH: "#{Formula["node"].opt_bin}:$PATH"
+    (bin/"places").write_env_script libexec/"dist/cli.js", PATH: "#{formula_opt_bin("node")}:$PATH"
   end
 
   def post_install
