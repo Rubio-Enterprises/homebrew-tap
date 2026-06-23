@@ -8,8 +8,8 @@ class Darfio < Formula
       using: :git, tag: "v1.0.0", revision: "39bc82f2684ce22267b09afa681c72bcdda9b52c"
   license "MIT"
 
-  depends_on "fio"
   depends_on "rust" => :build
+  depends_on "fio"
 
   def install
     system "cargo", "install", *std_cargo_args
