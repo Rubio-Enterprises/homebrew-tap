@@ -3,6 +3,7 @@ class Omlx < Formula
   homepage "https://github.com/Rubio-Enterprises/omlx"
   url "git@github.com:Rubio-Enterprises/omlx.git",
       using: :git, tag: "v0.4.4.post2", revision: "ce5ef51a7edfd79d9d9d377635c1597e26b32668"
+  version "0.4.4.post2"
   license "Apache-2.0"
 
   head "git@github.com:Rubio-Enterprises/omlx.git", branch: "main"
