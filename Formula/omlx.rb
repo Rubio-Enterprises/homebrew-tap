@@ -17,8 +17,8 @@ class Omlx < Formula
   # mlx-audio pins mlx-lm==0.31.1 which conflicts with omlx's git-pinned
   # mlx-lm. Fetch source separately so we can patch the pin before install.
   resource "mlx-audio" do
-    url "https://github.com/Blaizzy/mlx-audio.git",
-      revision: "ce5ef51a7edfd79d9d9d377635c1597e26b32668"
+    url "https://github.com/Blaizzy/mlx-audio/archive/51753266e0a4f766fd5e6fbc46652224efc23981.tar.gz"
+    sha256 "7f9297a18f4cfa8a30efde3ba0056b87dfbb5d64747591eef5ff44333f9a19ef"
   end
 
   service do
