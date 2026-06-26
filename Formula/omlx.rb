@@ -2,7 +2,7 @@ class Omlx < Formula
   desc "LLM inference server optimized for Apple Silicon"
   homepage "https://github.com/Rubio-Enterprises/omlx"
   url "git@github.com:Rubio-Enterprises/omlx.git",
-      using: :git, tag: "v0.4.4.post1", revision: "dd1996460e4582267608f8e119eb08010d420968"
+      using: :git, tag: "v0.4.4.post2", revision: "ce5ef51a7edfd79d9d9d377635c1597e26b32668"
   license "Apache-2.0"
 
   head "git@github.com:Rubio-Enterprises/omlx.git", branch: "main"
@@ -18,7 +18,7 @@ class Omlx < Formula
   # mlx-lm. Fetch source separately so we can patch the pin before install.
   resource "mlx-audio" do
     url "https://github.com/Blaizzy/mlx-audio.git",
-      revision: "51753266e0a4f766fd5e6fbc46652224efc23981"
+      revision: "ce5ef51a7edfd79d9d9d377635c1597e26b32668"
   end
 
   service do
