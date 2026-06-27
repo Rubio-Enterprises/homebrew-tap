@@ -1,28 +1,28 @@
 class Mo < Formula
   desc "Markdown viewer that opens .md files in a browser"
   homepage "https://github.com/Rubio-Enterprises/mo"
-  version "0.25.5"
+  version "0.26.0"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/Rubio-Enterprises/mo/releases/download/strubio-v0.25.5/mo_strubio-v0.25.5_darwin_arm64.zip"
-      sha256 "ed9de5e043177f6d89e7f28b76faad4ff061fa58e94d039425492e0b45ece644"
+      url "https://github.com/Rubio-Enterprises/mo/releases/download/strubio-v0.26.0/mo_strubio-v0.26.0_darwin_arm64.zip"
+      sha256 "affe5f62b2784c39b155bca731abff7973bf4e98fe7ff75981121cb30c807feb"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/Rubio-Enterprises/mo/releases/download/strubio-v0.25.5/mo_strubio-v0.25.5_darwin_amd64.zip"
-      sha256 "7f79ca4eae49b9049836172146ee2e2f7a24b548592377dd5291facafca2458b"
+      url "https://github.com/Rubio-Enterprises/mo/releases/download/strubio-v0.26.0/mo_strubio-v0.26.0_darwin_amd64.zip"
+      sha256 "dc87486f608cf5b3916eeeee994ac4eeb335159393a8633be2f14dd3c2db60b1"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/Rubio-Enterprises/mo/releases/download/strubio-v0.25.5/mo_strubio-v0.25.5_linux_arm64.tar.gz"
-      sha256 "d96ceb925d9627ff53c3f1ac6a299065aa4fa42c16c0f2d19ffff176aa2ff7dd"
+      url "https://github.com/Rubio-Enterprises/mo/releases/download/strubio-v0.26.0/mo_strubio-v0.26.0_linux_arm64.tar.gz"
+      sha256 "d7c350a502c7fa193c5f444a7d2d4cbaea71dbfaf04a51933490580adc7afbc6"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/Rubio-Enterprises/mo/releases/download/strubio-v0.25.5/mo_strubio-v0.25.5_linux_amd64.tar.gz"
-      sha256 "0861b2e49ef5798ea555830cddc03a75beed8ab50b2059cc6ead84e4dd8d1365"
+      url "https://github.com/Rubio-Enterprises/mo/releases/download/strubio-v0.26.0/mo_strubio-v0.26.0_linux_amd64.tar.gz"
+      sha256 "9049db0af6bb114b7df63986b6230b4072fcb45226436a8d21fb92945384a649"
     end
   end
 
