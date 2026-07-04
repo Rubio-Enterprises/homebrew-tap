@@ -5,6 +5,9 @@ class Omlx < Formula
       using: :git, tag: "v0.4.4.post2", revision: "ce5ef51a7edfd79d9d9d377635c1597e26b32668"
   version "0.4.4.post2"
   license "Apache-2.0"
+  # Build fix only (transformers cap below) — bump so installs built
+  # before the cap are seen as outdated and rebuilt.
+  revision 1
 
   head "git@github.com:Rubio-Enterprises/omlx.git", branch: "main"
 
@@ -43,10 +46,16 @@ class Omlx < Formula
     ENV.append "RUSTFLAGS", "-C link-arg=-Wl,-headerpad_max_install_names"
 
     # Install omlx (with optional grammar extra for structured output)
+    # transformers is capped below 5.13: 5.13.0 added a `key.__module__`
+    # check to AutoTokenizer.register() that rejects the string-form key
+    # mlx-lm 0.31.x passes ("NewlineTokenizer"), crashing `omlx serve` at
+    # import (AttributeError: 'str' object has no attribute '__module__').
+    # Verified 5.12.1 lacks the check. Drop the cap once omlx bumps to an
+    # mlx-lm release that registers with a class key.
     install_spec = build.with?("grammar") ? "#{buildpath}[grammar]" : buildpath.to_s
     system libexec/"bin/pip", "install",
            "--no-binary", "cohere_melody,pydantic-core,rpds-py,tiktoken",
-           install_spec
+           install_spec, "transformers<5.13"
 
     # Install mlx-audio with patched mlx-lm pin to avoid version conflict
     resource("mlx-audio").stage do
