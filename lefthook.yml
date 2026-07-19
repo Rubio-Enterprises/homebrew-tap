@@ -27,3 +27,4 @@ remotes:
     refetch_frequency: 24h
     configs:
       - lefthook/base.yml
+      - lefthook/brew.yml

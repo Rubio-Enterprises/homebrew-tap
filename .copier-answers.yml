@@ -13,7 +13,7 @@ enforcement_tier: experimental
 has_ansible: false
 has_codex_plugin: false
 has_go: false
-has_homebrew_formulae: false
+has_homebrew_formulae: true
 has_javascript: false
 has_lint_hooks: true
 has_python: false
