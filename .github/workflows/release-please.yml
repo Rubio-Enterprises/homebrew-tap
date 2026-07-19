@@ -1,6 +1,6 @@
 # release-please: opens / updates a release PR on every push to main.
 # When the release PR is merged, release-please tags + creates a GitHub release.
-# Per-archetype release-types are configured in release-please-config.json.
+# Per-stack release-types are configured in release-please-config.json.
 
 name: release-please
 # `on:` is quoted to satisfy `yaml[truthy]` (yamllint + ansible-lint): without
