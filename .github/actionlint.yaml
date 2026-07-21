@@ -1,0 +1,12 @@
+# Tap-level actionlint config, honored by `brew style` (verified 2026-07-21:
+# actionlint resolves this file from the project root of the workflows it
+# lints, overriding Homebrew/brew's own .github/actionlint.yaml whose
+# config-variables whitelist knows only Homebrew's variables).
+#
+# Without this, any org-templated workflow referencing a rubio Actions
+# variable fails brew style with "undefined configuration variable" — first
+# hit by the release-please.yml runner routing on vars.RUNNER_GLUE
+# (template/v1.55.25). Add further org RUNNER_* / repo variables here as
+# rendered workflows grow to reference them.
+config-variables:
+  - RUNNER_GLUE
