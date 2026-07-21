@@ -16,7 +16,12 @@ permissions:
 
 jobs:
   release-please:
-    runs-on: ubuntu-latest
+    # release-please is a pure GitHub-API job (no docker daemon, sudo, or
+    # browser), matching the glue runner tier's capability profile per
+    # mac-dev-playbook docs/homelab/references/architecture/runner-routing.md.
+    # The `|| '["ubuntu-latest"]'` fallback is a hosted label so public repos —
+    # where the private-visibility org var is invisible — keep working.
+    runs-on: ${{ fromJSON(vars.RUNNER_GLUE || '["ubuntu-latest"]') }}
     steps:
       - name: Mint release-please App token
         id: app-token
