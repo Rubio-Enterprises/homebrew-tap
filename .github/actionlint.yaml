@@ -10,3 +10,4 @@
 # rendered workflows grow to reference them.
 config-variables:
   - RUNNER_GLUE
+  - RUNNER_MACOS
