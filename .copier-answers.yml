@@ -8,7 +8,7 @@ enforce_e2e: false
 enforce_lint_format: true
 enforce_lint_hooks: true
 enforce_tests: false
-enforce_tests_reason: ''
+enforce_tests_reason: Homebrew tap of formulae only, with no language facets and no canonical test surface to gate
 enforce_typecheck: true
 enforcement_tier: experimental
 has_ansible: false
