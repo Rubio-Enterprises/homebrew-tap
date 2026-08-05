@@ -10,10 +10,10 @@ jobs:
     runs-on: ${{ fromJSON(vars.RUNNER_MACOS || '["macos-latest"]') }}
     steps:
       - name: Checkout
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@841d750a0ed9262d3c3ca31f2173974696bc261a # main
+        uses: Homebrew/actions/setup-homebrew@d3565f64e59130f1fd713440276f7d3e11079b88 # main
         with:
           token: ${{ github.token }}
 
