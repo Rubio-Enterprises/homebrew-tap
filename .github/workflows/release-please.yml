@@ -31,7 +31,8 @@ jobs:
           private-key: ${{ secrets.RELEASE_PLEASE_APP_PRIVATE_KEY }}
           permission-contents: write
           permission-pull-requests: write
-      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5
+      - id: release
+        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5
         with:
           # Use a GitHub App token, not GITHUB_TOKEN, so release PR workflows
           # run immediately instead of waiting for manual "Approve workflows".
@@ -40,3 +41,52 @@ jobs:
           # at the repo root — both are Copier-synced into every consumer repo.
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+      - name: Enable auto-merge on the release PR
+        # GitHub-native auto-merge waits on *required* status checks only —
+        # it will land over a red check that isn't required (the same hazard
+        # docs/runbooks/converge-fleet.md warns about, and why ADR-0021
+        # rejected this pattern for the plugin carrier controller). It's safe
+        # here, and ONLY here, because this repo's required-check set is the
+        # full property-driven gate floor (gate_tests, gate_lint_format,
+        # gate_audit, gate_secret_scan, gate_pr_title — see
+        # docs/runbooks/create-repo.md): there is no meaningful non-required
+        # check left for auto-merge to skip past. A repo that doesn't carry
+        # that complete gate-property set is not a safe candidate for this.
+        #
+        # Blast radius: every uses_release_please consumer (repo_type native
+        # or marketplace) renders this step — ~63 repos fleet-wide today, not
+        # just the smaller migration wave that raised it (dotfiles#322).
+        #
+        # No repo-settings change needed: auto-merge-allowed is already on
+        # fleet-wide at repo creation (docs/runbooks/create-repo.md).
+        #
+        # Merge method is read per repository, not assumed, mirroring
+        # _merge_method_flag in org_plugin_carrier_pull_requests.py: this
+        # file's condition is `repo_type == native OR is_marketplace`, an OR,
+        # so it also renders for a marketplace repo whose repo_type is
+        # extended_fork — a shared-history Sync Target, which org policy
+        # makes merge-only so upstream parentage survives. Assuming squash
+        # there is a hard 405.
+        #
+        # Only runs when release-please actually created or updated the PR
+        # this run — an unchanged release PR reports prs_created: false, so a
+        # push that touches no releasable path is a no-op here too. Re-arming
+        # on an already-armed PR is idempotent.
+        if: steps.release.outputs.prs_created == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          RELEASE_PRS: ${{ steps.release.outputs.prs }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          pr_number=$(echo "$RELEASE_PRS" | jq -r '.[0].number')
+          merge_settings=$(gh repo view "$REPO" --json squashMergeAllowed,mergeCommitAllowed)
+          if [ "$(echo "$merge_settings" | jq -r '.squashMergeAllowed')" = "true" ]; then
+            merge_flag=--squash
+          elif [ "$(echo "$merge_settings" | jq -r '.mergeCommitAllowed')" = "true" ]; then
+            merge_flag=--merge
+          else
+            echo "::error::$REPO allows neither squash nor merge commits; can't auto-merge PR #$pr_number" >&2
+            exit 1
+          fi
+          gh pr merge "$pr_number" --repo "$REPO" "$merge_flag" --auto
