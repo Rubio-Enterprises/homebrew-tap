@@ -37,7 +37,8 @@ brew bump-cask-pr --write-only --no-audit --no-style "rubio-enterprises/tap/<cas
 ### Formulas
 
 - No explicit livecheck block — Homebrew auto-detects the `:git` strategy from the stable URL (`git ls-remote --tags`). Do not use `strategy :github_latest` (requires GitHub Releases, which these repos don't create).
-- Formula version bumps are automated via `mislav/bump-homebrew-formula-action` in each source repo's CI (triggers on tag push)
+- Formula version bumps are automated from each source repo's CI on tag push, but the **mechanism varies per repo** — do not assume one. Some use `mislav/bump-homebrew-formula-action`; `mo` instead rewrites `Formula/mo.rb` wholesale from a heredoc and PUTs it via `gh api` in its own release workflow (`.github/workflows/tagpr.yml`), authenticated by a per-run `rubio-tap-push` App token scoped to `contents:write` on this repo only. Either way the formula is **machine-generated**: hand-editing a bumped field here is pointless, because the next release overwrites it. Fix the generator in the source repo.
+- `mo` also demonstrates the fork tag convention: source tags are `v<upstream>-strubio.<N>` (e.g. `v1.6.7-strubio.1`) and the formula `version` is that tag minus its leading `v` (`1.6.7-strubio.1`), same shape as `marvin-cli`.
 - Build-time version embedding with Go ldflags (`-X main.version=#{version}`) for compiled formulas, `inreplace` for shell scripts
 - Service block for launchd integration (`brew services start/stop`)
 - Config files installed to `etc/<formula-name>/`
