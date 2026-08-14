@@ -2,7 +2,7 @@ class Clipssh < Formula
   desc "Send clipboard images to remote SSH hosts"
   homepage "https://github.com/Rubio-Enterprises/clipssh"
   url "git@github.com:Rubio-Enterprises/clipssh.git",
-      using: :git, tag: "v1.3.1", revision: "62bc66c5abb2f281e09a313b4a8bc7b0ec5b61fc"
+      using: :git, tag: "v1.4.0", revision: "9ad55c30c8b96feb7efeae1cd72ed45edfcba03e"
   license "MIT"
 
   depends_on xcode: ["13.0", :build]
