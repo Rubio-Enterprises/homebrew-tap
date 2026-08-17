@@ -12,22 +12,10 @@ brew tap rubio-enterprises/tap
 
 | Formula | Description | Install |
 |---------|-------------|---------|
-| `marvin-relay` | Go relay server bridging Amazing Marvin webhooks to Apple Live Activities | `brew install rubio-enterprises/tap/marvin-relay` |
 | `clipssh` | Send clipboard screenshots to remote SSH hosts | `brew install rubio-enterprises/tap/clipssh` |
-| `omlx` | LLM inference server optimized for Apple Silicon | `brew install rubio-enterprises/tap/omlx` |
-| `marvin-cli` | CLI for Amazing Marvin (desktop local API + public cloud API) | `brew install rubio-enterprises/tap/marvin-cli` |
-| `mo` | Markdown viewer that opens .md files in a browser | `brew install rubio-enterprises/tap/mo` |
 | `gmaps-sync` | One-way sync from Google Maps saved places to local JSON | `brew install rubio-enterprises/tap/gmaps-sync` |
-
-### marvin-relay
-
-Runs as a launchd service via `brew services`:
-
-```bash
-brew install rubio-enterprises/tap/marvin-relay
-brew services start marvin-relay
-brew services log marvin-relay
-```
+| `mo` | Markdown viewer that opens .md files in a browser | `brew install rubio-enterprises/tap/mo` |
+| `omlx` | LLM inference server optimized for Apple Silicon | `brew install rubio-enterprises/tap/omlx` |
 
 ### clipssh
 
