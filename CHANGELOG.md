@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/Rubio-Enterprises/homebrew-tap/compare/v1.0.0...v1.1.0) (2026-08-17)
+
+
+### Features
+
+* bump mo to v1.6.7-strubio.1 ([a0915c5](https://github.com/Rubio-Enterprises/homebrew-tap/commit/a0915c5506d21e0fd92c284c69f30b09b19bf310))
+
 ## 1.0.0 (2026-08-08)
 
 
