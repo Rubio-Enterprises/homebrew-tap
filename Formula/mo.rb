@@ -1,28 +1,28 @@
 class Mo < Formula
   desc "Markdown viewer that opens .md files in a browser"
   homepage "https://github.com/Rubio-Enterprises/mo"
-  version "0.27.0"
+  version "1.6.7-strubio.1"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/Rubio-Enterprises/mo/releases/download/strubio-v0.27.0/mo_strubio-v0.27.0_darwin_arm64.zip"
-      sha256 "0de87c005b80210694e9bd8467b83e09aef41bd2a2be6e3f0e9f4fa4886f2534"
+      url "https://github.com/Rubio-Enterprises/mo/releases/download/v1.6.7-strubio.1/mo_v1.6.7-strubio.1_darwin_arm64.zip"
+      sha256 "1efb96c6f821ae41984202872a6d0423ed897a19d1165dd1ebaa6a2614a0eead"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/Rubio-Enterprises/mo/releases/download/strubio-v0.27.0/mo_strubio-v0.27.0_darwin_amd64.zip"
-      sha256 "b8f7dd40d4734084bbd9a7be3b7ffc60ac46e6825503b55a6a03d3e223698640"
+      url "https://github.com/Rubio-Enterprises/mo/releases/download/v1.6.7-strubio.1/mo_v1.6.7-strubio.1_darwin_amd64.zip"
+      sha256 "d5ac16afb152520e1d44c275e57f5826339d87c6203b7e25bda76c6bfeb87126"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/Rubio-Enterprises/mo/releases/download/strubio-v0.27.0/mo_strubio-v0.27.0_linux_arm64.tar.gz"
-      sha256 "d6eec2a1a01c6264296a1eee1ec3c4efaf10ed0064bc4e35df8244df07ba7441"
+      url "https://github.com/Rubio-Enterprises/mo/releases/download/v1.6.7-strubio.1/mo_v1.6.7-strubio.1_linux_arm64.tar.gz"
+      sha256 "3a69b6c10f2bebe276bd10de895d802236991d739f51abd413b26afc7543dd98"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/Rubio-Enterprises/mo/releases/download/strubio-v0.27.0/mo_strubio-v0.27.0_linux_amd64.tar.gz"
-      sha256 "c4e335e210c5434e247af252bd138af406cfa8220a0e787ffff2f1a51ed6d661"
+      url "https://github.com/Rubio-Enterprises/mo/releases/download/v1.6.7-strubio.1/mo_v1.6.7-strubio.1_linux_amd64.tar.gz"
+      sha256 "05ba5cf9fe36dea30932fd19e71b63afb5fe1be0c78038f7f9705ec18c0037f5"
     end
   end
 
