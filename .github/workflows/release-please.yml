@@ -41,6 +41,7 @@ jobs:
           # at the repo root — both are Copier-synced into every consumer repo.
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
       - name: Enable auto-merge on the release PR
         # GitHub-native auto-merge waits on *required* status checks only —
         # it will land over a red check that isn't required (the same hazard
