@@ -73,7 +73,7 @@ jobs:
         # this run — an unchanged release PR reports prs_created: false, so a
         # push that touches no releasable path is a no-op here too. Re-arming
         # on an already-armed PR is idempotent.
-        if: steps.release.outputs.prs_created == 'true'
+        if: steps.release.outputs.prs_created == 'true' && steps.release.outputs.prs != ''
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           RELEASE_PRS: ${{ steps.release.outputs.prs }}
