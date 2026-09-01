@@ -59,3 +59,15 @@ node = "22.12.0"
 # it therefore activates hooks for developers who never activate mise.
 [hooks]
 postinstall = "mise exec -- lefthook install"
+
+# Regenerate the GENERATED lint configs (floor ⊕ this repo's `*.local`
+# sidecars) without a full `copier update`. Universal rather than facet-gated:
+# every onboarded repo carries `.yamllint` + `.markdownlint-cli2.jsonc`, and the
+# stack facets add `ruff.toml` / `biome.jsonc` on top.
+#
+# Invoked through `bash` rather than the script's own exec bit: copier strips
+# exec bits from rendered files (see the chmod-claude-scripts.sh rationale in
+# copier.yml's `_tasks` block), so relying on it would break on a fresh render.
+[tasks.lint-config]
+description = "Regenerate generated lint configs from the standards floor + this repo's *.local sidecars"
+run = ["bash scripts/regenerate-lint-config.sh"]
