@@ -24,7 +24,11 @@ jobs:
         run: brew audit --cask --tap rubio-enterprises/tap
 
       - name: Style check
-        run: brew style rubio-enterprises/tap
+        # Homebrew's bundled shfmt and the fleet's upstream shfmt disagree on
+        # shell control-flow layout. The fleet formatter governs the
+        # template-rendered scripts/** tree, so scope Homebrew style to the
+        # Formula/ and Casks/ trees it owns, matching the *.rb-only fleet hook.
+        run: brew style "$(brew --repo rubio-enterprises/tap)"/{Formula,Casks}
 
       - name: Livecheck (casks)
         run: brew livecheck --cask --tap rubio-enterprises/tap
