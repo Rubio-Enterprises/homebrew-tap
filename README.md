@@ -16,6 +16,7 @@ brew tap rubio-enterprises/tap
 | `gmaps-sync` | One-way sync from Google Maps saved places to local JSON | `brew install rubio-enterprises/tap/gmaps-sync` |
 | `mo` | Markdown viewer that opens .md files in a browser | `brew install rubio-enterprises/tap/mo` |
 | `omlx` | LLM inference server optimized for Apple Silicon | `brew install rubio-enterprises/tap/omlx` |
+| `taskjuggler` | Project scheduler with interactive htmljs Gantt reports (Rubio fork) | `brew install rubio-enterprises/tap/taskjuggler` |
 
 ### clipssh
 

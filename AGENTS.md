@@ -8,7 +8,7 @@ Repo-specific context (in-progress migrations, gotchas, agent guidance):
 
 Personal Homebrew tap (`rubio-enterprises/tap`) distributing:
 
-- **Formulas** (`Formula/`): four, in two distribution shapes that matter when bumping them — `:git` source builds (`clipssh`, `gmaps-sync`, `omlx`) and prebuilt release archives with per-arch `sha256` (`mo`). See "Formulas" under Key Patterns.
+- **Formulas** (`Formula/`): five, in two distribution shapes that matter when bumping them — `:git` source builds (`clipssh`, `gmaps-sync`, `omlx`, `taskjuggler`) and prebuilt release archives with per-arch `sha256` (`mo`). See "Formulas" under Key Patterns.
 - **Casks** (`Casks/`): macOS apps (currently `qlmarkdown` and `syntax-highlight` — unsigned QuickLook extensions)
 
 ## Common Commands
@@ -38,14 +38,14 @@ brew bump-cask-pr --write-only --no-audit --no-style "rubio-enterprises/tap/<cas
 
 - No explicit livecheck block — Homebrew auto-detects the `:git` strategy from the stable URL (`git ls-remote --tags`). Do not use `strategy :github_latest` (requires GitHub Releases, which these repos don't create).
 - Formula version bumps are automated from each source repo's CI on tag push, and **the mechanism depends on the formula's shape** — there are exactly two, so check which one applies before touching anything:
-  - **`:git` formulas** (`clipssh`, `gmaps-sync`, `omlx`) call the org reusable `Rubio-Enterprises/.github/.github/workflows/bump-brew.yml`, which rewrites `tag:`/`revision:`. It hard-refuses anything without `using: :git` (`grep -q 'using: :git' || exit 1`), so it can never bump `mo`.
+  - **`:git` formulas** (`clipssh`, `gmaps-sync`, `omlx`, `taskjuggler`) call the org reusable `Rubio-Enterprises/.github/.github/workflows/bump-brew.yml`, which rewrites `tag:`/`revision:`. It hard-refuses anything without `using: :git` (`grep -q 'using: :git' || exit 1`), so it can never bump `mo`.
   - **`mo`** (prebuilt archives, four `url` + `sha256` pairs) has its own `bump-tap` job in `Rubio-Enterprises/mo`'s `.github/workflows/tagpr.yml`, which recomputes the checksums from the published release assets and PUTs the whole formula via `gh api`. Re-drivable for an already published tag with `gh workflow run tagpr.yml -f tag=<tag>`.
 - Both paths authenticate as the per-run `rubio-tap-push` App (`contents:write`, scoped to this repo) and **push straight to `main`**. That works because the App holds an `always` ruleset bypass declared in `.github-private`'s terraform — human PRs against this tap stay fully gated. If a bump ever 409s with "Changes must be made through a pull request", the bypass is the thing to check, not the workflow.
 - Either way the formula is **machine-generated**: hand-editing a bumped field here is pointless, because the next release overwrites it. Fix the generator in the source repo.
-- `mo` also carries the fork tag convention: source tags are `v<upstream>-strubio.<N>` (e.g. `v1.6.7-strubio.1`) and the formula `version` is that tag minus its leading `v` (`1.6.7-strubio.1`).
+- `mo` and `taskjuggler` carry the fork tag convention: source tags are `v<upstream>-strubio.<N>` (e.g. `v1.6.7-strubio.1`) and the formula `version` is that tag minus its leading `v` (`1.6.7-strubio.1`). For `taskjuggler` that `version` line is load-bearing: Homebrew scans only `3.8.4` out of `v3.8.4-strubio.1`, so without it `brew outdated` would never see a `-strubio.2` bump. The reusable updates an existing `version` line but never inserts one.
 - Version embedding is per-formula: `inreplace` of a `%%VERSION%%` placeholder for the shell/Swift builds (`clipssh`), and nothing at all for `mo` (its binary is prebuilt with the version already compiled in via ldflags upstream in `mo`'s own release workflow).
 - Service block for launchd integration (`brew services start/stop`) — used by `gmaps-sync` and `omlx`
-- Python formulas (`gmaps-sync`, `omlx`) install into `libexec` with a virtualenv and symlink entry points into `bin`
+- Python formulas (`gmaps-sync`, `omlx`) install into `libexec` with a virtualenv and symlink entry points into `bin`; the Ruby formula (`taskjuggler`) does the gem equivalent — `gem build` + `gem install` into `libexec` as `GEM_HOME`, with `env_script_all_files` wrappers in `bin` (runtime gems resolve from rubygems.org at build time, like `pip` in the Python formulas)
 - Test block verifies `--version` output
 
 ### Casks
