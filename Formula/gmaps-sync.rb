@@ -19,12 +19,12 @@ class GmapsSync < Formula
     (bin/"places").write_env_script libexec/"dist/cli.js", PATH: "#{formula_opt_bin("node")}:$PATH"
   end
 
-  def post_install
-    old_plist = Pathname.new(Dir.home)/"Library/LaunchAgents/com.gmaps-sync.pull.plist"
-    if old_plist.exist?
-      opoo "Found old gmaps-sync scheduling plist at #{old_plist}"
-      opoo "Remove it with: launchctl unload #{old_plist} && rm #{old_plist}"
-      opoo "Then use: brew services start gmaps-sync"
+  post_install_steps do
+    if_path_exists "Library/LaunchAgents/com.gmaps-sync.pull.plist", base: :home do
+      warn "Found old gmaps-sync scheduling plist at ~/Library/LaunchAgents/com.gmaps-sync.pull.plist"
+      warn "Remove it with: launchctl unload ~/Library/LaunchAgents/com.gmaps-sync.pull.plist && " \
+           "rm ~/Library/LaunchAgents/com.gmaps-sync.pull.plist"
+      warn "Then use: brew services start gmaps-sync"
     end
   end
 

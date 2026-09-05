@@ -67,6 +67,54 @@ class Omlx < Formula
     system libexec/"bin/pip", "install", "python-multipart>=0.0.5"
 
     bin.install_symlink Dir[libexec/"bin/omlx"]
+
+    return if build.without?("grammar")
+
+    (libexec/"patch-xgrammar.py").write <<~PYTHON
+      import glob
+      import json
+      import os
+      import subprocess
+      import sys
+
+      import site
+      import tvm_ffi
+
+      site_dir = site.getsitepackages()[0]
+      tvmlib = os.path.join(os.path.dirname(tvm_ffi.__file__), "lib")
+      dylib = os.path.join(site_dir, "xgrammar", "libxgrammar_bindings.dylib")
+      dist_dirs = sorted(glob.glob(os.path.join(site_dir, "xgrammar-*.dist-info")))
+
+      print("Patching xgrammar macOS arm64 wheel")
+      print(f"  site={site_dir}")
+      print(f"  tvmlib={tvmlib}")
+      print(f"  dylib={dylib} (exists? {str(os.path.exists(dylib)).lower()})")
+      print(f"  dist-info={json.dumps(dist_dirs)}")
+
+      if not os.path.exists(dylib):
+          raise SystemExit(f"xgrammar dylib not found at {dylib}")
+      if not dist_dirs:
+          raise SystemExit(f"xgrammar dist-info not found under {site_dir}")
+
+      rpaths = subprocess.check_output(["/usr/bin/otool", "-l", dylib], text=True)
+      if tvmlib in rpaths:
+          print("  rpath already points at tvm_ffi/lib")
+      else:
+          print(f"  adding rpath -> {tvmlib}")
+          subprocess.run(["/usr/bin/install_name_tool", "-add_rpath", tvmlib, dylib], check=True)
+          subprocess.run(["/usr/bin/codesign", "--force", "--sign", "-", dylib], check=True)
+
+      record = os.path.join(dist_dirs[0], "RECORD")
+      if os.path.exists(record) and "libxgrammar_bindings.dylib" in open(record, encoding="utf-8").read():
+          print("  RECORD already lists the dylib")
+      else:
+          print(f"  writing dylib entry to {record}")
+          with open(record, "a", encoding="utf-8") as record_file:
+              record_file.write("xgrammar/libxgrammar_bindings.dylib,,\\n")
+
+      print("  verifying import xgrammar...")
+      subprocess.run([sys.executable, "-c", "import xgrammar; print('xgrammar import OK')"], check=True)
+    PYTHON
   end
 
   # Patch the macOS arm64 xgrammar wheel so its native binding loads.
@@ -79,58 +127,20 @@ class Omlx < Formula
   # hides the Reasoning Parser dropdown. Tracking upstream:
   # jundot/omlx#1005.
   #
-  # Runs in post_install rather than install because Homebrew's
+  # Runs in post_install_steps rather than install because Homebrew's
   # post-install "Cleaning" step deletes every dist-info/RECORD file
   # in the keg as part of its relocation pass (RECORD hashes become
   # invalid once brew rewrites Mach-O install names). Anything we
   # write to RECORD inside `def install` is wiped before the user
   # sees it.
-  def post_install
-    return if build.without?("grammar")
-
-    ohai "Patching xgrammar macOS arm64 wheel"
-    py = libexec/"bin/python"
-    site = Utils.safe_popen_read(py, "-c",
-                                 "import site; print(site.getsitepackages()[0])").chomp
-    tvmlib = Utils.safe_popen_read(py, "-c",
-      "import os, tvm_ffi; print(os.path.join(os.path.dirname(tvm_ffi.__file__), 'lib'))").chomp
-    dylib = "#{site}/xgrammar/libxgrammar_bindings.dylib"
-    dist_dirs = Dir["#{site}/xgrammar-*.dist-info"]
-
-    ohai "  site=#{site}"
-    ohai "  tvmlib=#{tvmlib}"
-    ohai "  dylib=#{dylib} (exists? #{File.exist?(dylib)})"
-    ohai "  dist-info=#{dist_dirs.inspect}"
-
-    odie "xgrammar dylib not found at #{dylib}" unless File.exist?(dylib)
-    odie "xgrammar dist-info not found under #{site}" if dist_dirs.empty?
-
-    # Patch 1: add tvm_ffi/lib to the dylib's rpath, then re-codesign so
-    # macOS will load the modified dylib.
-    rpaths = Utils.safe_popen_read("/usr/bin/otool", "-l", dylib)
-    if rpaths.include?(tvmlib)
-      ohai "  rpath already points at tvm_ffi/lib"
-    else
-      ohai "  adding rpath -> #{tvmlib}"
-      system "/usr/bin/install_name_tool", "-add_rpath", tvmlib, dylib
-      system "/usr/bin/codesign", "--force", "--sign", "-", dylib
+  post_install_steps do
+    if_path_exists "patch-xgrammar.py", base: :libexec do
+      run "bin/python",
+          args:           ["{{libexec}}/patch-xgrammar.py"],
+          base:           :libexec,
+          print_stdout:   true,
+          writable_paths: ["{{libexec}}"]
     end
-
-    # Patch 2: ensure RECORD lists the dylib so tvm_ffi's manifest-based
-    # lookup finds it. Brew's clean pass already deleted every RECORD by
-    # the time post_install runs, so we always (re)create one.
-    record = "#{dist_dirs.first}/RECORD"
-    if File.exist?(record) && File.read(record).include?("libxgrammar_bindings.dylib")
-      ohai "  RECORD already lists the dylib"
-    else
-      ohai "  writing dylib entry to #{record}"
-      File.open(record, "a") { |f| f.puts "xgrammar/libxgrammar_bindings.dylib,," }
-    end
-
-    # Verify the patch took. Failing here is much less confusing than
-    # the user discovering it later via a 500 from the admin route.
-    ohai "  verifying import xgrammar..."
-    system py, "-c", "import xgrammar; print('xgrammar import OK')"
   end
 
   test do
