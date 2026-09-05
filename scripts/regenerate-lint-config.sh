@@ -129,11 +129,7 @@ fi
 
 CHANNEL="$(resolve_channel)"
 WORK="$(mktemp -d)"
-<<<<<<< before updating
-trap 'rm -rf "$WORK"' EXIT
-=======
 trap 'rm -rf "${WORK}"' EXIT
->>>>>>> after updating
 RENDER_DIR="${WORK}/render"
 mkdir -p "${RENDER_DIR}"
 
@@ -147,8 +143,6 @@ ${YQ} 'with_entries(select(.key | test("^_") | not))' .copier-answers.yml >"${WO
 for sidecar in "${SIDECARS[@]}"; do
   if [[ -f "${sidecar}" ]]; then
     cp "${sidecar}" "${RENDER_DIR}/${sidecar}"
-<<<<<<< before updating
-=======
   fi
 done
 
@@ -172,7 +166,6 @@ done
 for cfg in "${CONFIGS[@]}" biome.json; do
   if [[ -f "${cfg}" ]]; then
     cp "${cfg}" "${RENDER_DIR}/${cfg}"
->>>>>>> after updating
   fi
 done
 
