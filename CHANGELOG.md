@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.0](https://github.com/Rubio-Enterprises/homebrew-tap/compare/v1.1.0...v1.2.0) (2026-09-10)
+
+
+### Features
+
+* **taskjuggler:** add formula for the private TaskJuggler fork ([#171](https://github.com/Rubio-Enterprises/homebrew-tap/issues/171)) ([80d99b4](https://github.com/Rubio-Enterprises/homebrew-tap/commit/80d99b43939c0aebbfe6e80258cdefa18675b9b3))
+
+
+### Bug Fixes
+
+* **style:** satisfy brew style shell cops ([#164](https://github.com/Rubio-Enterprises/homebrew-tap/issues/164)) ([a5baddf](https://github.com/Rubio-Enterprises/homebrew-tap/commit/a5baddf062f3e101c3f41b0c2c1a05ca95fe8fb6))
+* **tap:** adopt post_install_steps and postflight_steps ([#172](https://github.com/Rubio-Enterprises/homebrew-tap/issues/172)) ([b89dc04](https://github.com/Rubio-Enterprises/homebrew-tap/commit/b89dc0426f109b08dd770d8e3702aff207b1d3f6))
+
 ## [1.1.0](https://github.com/Rubio-Enterprises/homebrew-tap/compare/v1.0.0...v1.1.0) (2026-08-17)
 
 
