@@ -19,7 +19,7 @@ jobs:
           persist-credentials: false
 
       - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@3cdb78d0f62ad29dd32de765782654f4eedea607 # main
+        uses: Homebrew/actions/setup-homebrew@75658cea3fff530c0185eb566632a8ee1d03d752 # main
         with:
           token: ${{ github.token }}
 
