@@ -3,11 +3,11 @@
 # lints, overriding Homebrew/brew's own .github/actionlint.yaml whose
 # config-variables whitelist knows only Homebrew's variables).
 #
-# Without this, any org-templated workflow referencing a rubio Actions
-# variable fails brew style with "undefined configuration variable" — first
-# hit by the release-please.yml runner routing on vars.RUNNER_GLUE
-# (template/v1.55.25). Add further org RUNNER_* / repo variables here as
-# rendered workflows grow to reference them.
+# Without this, org-templated workflows referencing private org variables
+# fail brew style with "undefined configuration variable". RUNNERS is used
+# by this tap's own macOS workflows; RUNNER_GLUE is still referenced literally
+# by the Copier-rendered release-please.yml until the standards update lands.
+# Keep only variables actually referenced by workflows in this checkout.
 config-variables:
+  - RUNNERS
   - RUNNER_GLUE
-  - RUNNER_MACOS
