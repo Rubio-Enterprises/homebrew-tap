@@ -7,7 +7,7 @@ on:
 
 jobs:
   lint:
-    runs-on: ${{ fromJSON(vars.RUNNER_MACOS || '["macos-latest"]') }}
+    runs-on: ${{ fromJSON(vars.RUNNERS || '{}').macos || fromJSON('["macos-latest"]') }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
