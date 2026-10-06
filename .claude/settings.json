@@ -1,5 +1,11 @@
 {
   "extraKnownMarketplaces": {
+    "anthropic-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
+      }
+    },
     "claude-lsps": {
       "source": {
         "source": "github",
@@ -49,10 +55,13 @@
     "commit-commands@claude-plugins-official": true,
     "cue-lsp@claude-lsps": true,
     "defuddle@tools-skills": true,
+    "doc-coauthoring@tools-skills": true,
+    "document-skills@anthropic-agent-skills": true,
     "finish-pr@tools-skills": true,
     "fork-maintenance@tools-skills": true,
     "herdr@tools-skills": true,
     "independent-comparison@tools-skills": true,
+    "likec4-dsl@tools-skills": true,
     "markdown-serve@tools-skills": true,
     "mattpocock-skills@claude-plugins-official": true,
     "playground@claude-plugins-official": true,
@@ -73,6 +82,7 @@
     "swift-lsp@claude-plugins-official": true,
     "tailscale-serve@tools-skills": true,
     "twelve-factor-audit@tools-skills": true,
-    "vtsls@claude-lsps": true
+    "vtsls@claude-lsps": true,
+    "web-artifacts-builder@tools-skills": true
   }
 }
