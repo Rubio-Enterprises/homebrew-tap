@@ -2,38 +2,86 @@
 
 A personal Homebrew tap for tools and utilities.
 
-## Installation
+Homebrew identifies this repository as `rubio-enterprises/tap`, the tap name
+used in the commands below.
+
+## Table of Contents
+
+- [Security](#security)
+- [Install](#install)
+- [Usage](#usage)
+- [Formulas](#formulas)
+- [Casks](#casks)
+- [Updating](#updating)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Security
+
+**The QuickLook applications are not signed or notarized by Apple.** This tap
+automatically removes the macOS quarantine attribute to allow installation.
+By using these casks, you acknowledge that:
+
+- You trust the upstream developer ([sbarex](https://github.com/sbarex)).
+- You understand that unsigned apps bypass macOS Gatekeeper protections.
+- You accept the security implications of running unverified software.
+
+The sha256 checksums in each cask definition verify download integrity
+against the expected release artifacts.
+
+## Install
+
+With [Homebrew](https://brew.sh) installed:
 
 ```bash
 brew tap rubio-enterprises/tap
 ```
 
-## Formulas
+The source-build formulas fetch organization repositories over SSH; access to
+those repositories is required. The QuickLook casks require macOS; `omlx`
+requires Apple Silicon.
 
-| Formula | Description | Install |
-|---------|-------------|---------|
-| `clipssh` | Send clipboard screenshots to remote SSH hosts | `brew install rubio-enterprises/tap/clipssh` |
-| `gmaps-sync` | One-way sync from Google Maps saved places to local JSON | `brew install rubio-enterprises/tap/gmaps-sync` |
-| `mo` | Markdown viewer that opens .md files in a browser | `brew install rubio-enterprises/tap/mo` |
-| `omlx` | LLM inference server optimized for Apple Silicon | `brew install rubio-enterprises/tap/omlx` |
-| `taskjuggler` | Project scheduler with interactive htmljs Gantt reports (Rubio fork) | `brew install rubio-enterprises/tap/taskjuggler` |
+## Usage
 
-### clipssh
+### CLI
+
+Install a formula and invoke its command, for example:
 
 ```bash
 brew install rubio-enterprises/tap/clipssh
 clipssh user@myserver
 ```
 
-### omlx
+### omlx service
 
 Runs as a launchd service via `brew services`:
 
 ```bash
 brew install rubio-enterprises/tap/omlx --with-grammar
 brew services start omlx
-brew services log omlx
+tail -f "$(brew --prefix)/var/log/omlx.log"
 ```
+
+### QuickLook extensions
+
+```bash
+brew install --cask rubio-enterprises/tap/syntax-highlight
+brew install --cask rubio-enterprises/tap/qlmarkdown
+```
+
+After installation, enable the Quick Look extensions in **System Settings**.
+The location varies by macOS version (for example, **Privacy & Security >
+Extensions > Quick Look**).
+
+## Formulas
+
+| Formula | Description | Install |
+| --- | --- | --- |
+| `clipssh` | Send clipboard images, including screenshots, to remote SSH hosts | `brew install rubio-enterprises/tap/clipssh` |
+| `gmaps-sync` | One-way sync from Google Maps saved places to local JSON | `brew install rubio-enterprises/tap/gmaps-sync` |
+| `mo` | Markdown viewer that opens .md files in a browser | `brew install rubio-enterprises/tap/mo` |
+| `omlx` | LLM inference server optimized for Apple Silicon | `brew install rubio-enterprises/tap/omlx` |
+| `taskjuggler` | Project scheduler with interactive htmljs Gantt reports (Rubio fork) | `brew install rubio-enterprises/tap/taskjuggler` |
 
 ## Casks
 
@@ -41,17 +89,9 @@ Unsigned QuickLook extensions removed from the official Homebrew cask repository
 due to failing macOS Gatekeeper checks.
 
 | Cask | App | Version | Upstream |
-|------|-----|---------|----------|
+| --- | --- | --- | --- |
 | `syntax-highlight` | Syntax Highlight | 2.1.27 | [sbarex/SourceCodeSyntaxHighlight](https://github.com/sbarex/SourceCodeSyntaxHighlight) |
 | `qlmarkdown` | QLMarkdown | 1.0.24 | [sbarex/QLMarkdown](https://github.com/sbarex/QLMarkdown) |
-
-```bash
-brew install --cask rubio-enterprises/tap/syntax-highlight
-brew install --cask rubio-enterprises/tap/qlmarkdown
-```
-
-After installation, open **System Settings > Privacy & Security > Extensions >
-Quick Look** to enable the extensions.
 
 ## Updating
 
@@ -63,19 +103,21 @@ brew livecheck --cask --tap rubio-enterprises/tap   # check for new upstream cas
 
 Formula versions are bumped automatically when source repos push new tags.
 
-## Security Notice (QuickLook Casks)
+## Contributing
 
-**The QuickLook applications are not signed or notarized by Apple.** This tap
-automatically removes the macOS quarantine attribute to allow installation.
-By using these casks, you acknowledge that:
+Organization members can raise questions in this repository's issues and submit
+changes through pull requests. Follow the
+[PR template](.github/PULL_REQUEST_TEMPLATE.md): use a Conventional Commits title
+and fill in the linked work item, What?, Why?, How?, Testing?, Feedback?, and
+Other Information or Known Dependencies sections (screenshots when relevant).
+Keep the body within 400 words.
 
-- You trust the upstream developer ([sbarex](https://github.com/sbarex))
-- You understand that unsigned apps bypass macOS Gatekeeper protections
-- You accept the security implications of running unverified software
-
-The sha256 checksums in each cask definition verify download integrity
-against the expected release artifacts.
+There is no `mise run lint` or `mise run test` task. Run the Markdown and
+other staged-file checks with `mise exec -- lefthook run pre-commit`. For
+formula/cask changes, run the Homebrew audits and style checks from
+[AGENTS.md](AGENTS.md); CI also runs cask livecheck. When changing lint
+sidecars, regenerate their configs with `mise run lint-config`.
 
 ## License
 
-MIT
+[MIT](LICENSE) — Copyright (c) 2026 Rubio-Enterprises.
