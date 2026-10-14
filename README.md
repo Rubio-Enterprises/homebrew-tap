@@ -117,7 +117,9 @@ SSH source transport regression check across all formulas and casks. There is no
 `mise run lint` task. Run the Markdown and other staged-file checks with
 `mise exec -- lefthook run pre-commit`. For formula/cask changes, run the Homebrew
 audits and style checks from
-[AGENTS.md](AGENTS.md); CI also runs cask livecheck. When changing lint
+[AGENTS.md](AGENTS.md); CI also runs cask livecheck. CI selects current stable
+Homebrew before linting instead of relying on the runner image's bundled version.
+This updates Homebrew itself, not installed formulae or casks. When changing lint
 sidecars, regenerate their configs with `mise run lint-config`.
 
 ## License
