@@ -1,7 +1,7 @@
 class Taskjuggler < Formula
   desc "Project scheduler with interactive htmljs Gantt reports (Rubio fork)"
   homepage "https://github.com/Rubio-Enterprises/TaskJuggler"
-  url "git@github.com:Rubio-Enterprises/TaskJuggler.git",
+  url "https://github.com/Rubio-Enterprises/TaskJuggler.git",
       using: :git, tag: "v3.8.4-strubio.1", revision: "237e8008c128fbc35fe3589ceb270b7f7905953a"
   # Fork tag convention (same as mo): v<upstream>-strubio.<N>. Homebrew scans
   # only "3.8.4" out of that tag, so the explicit line is what lets `brew
