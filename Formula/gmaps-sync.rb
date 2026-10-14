@@ -1,7 +1,7 @@
 class GmapsSync < Formula
   desc "One-way sync from Google Maps saved places to local JSON"
   homepage "https://github.com/Rubio-Enterprises/gmaps-sync"
-  url "git@github.com:Rubio-Enterprises/gmaps-sync.git",
+  url "https://github.com/Rubio-Enterprises/gmaps-sync.git",
       using: :git, tag: "v0.2.5", revision: "d688464b29f1623dc7e7006406c64b6e151973fe"
   license "MIT"
 

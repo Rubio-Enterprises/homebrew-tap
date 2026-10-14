@@ -1,7 +1,7 @@
 class Omlx < Formula
   desc "LLM inference server optimized for Apple Silicon"
   homepage "https://github.com/Rubio-Enterprises/omlx"
-  url "git@github.com:Rubio-Enterprises/omlx.git",
+  url "https://github.com/Rubio-Enterprises/omlx.git",
       using: :git, tag: "v0.4.4.post2", revision: "ce5ef51a7edfd79d9d9d377635c1597e26b32668"
   version "0.4.4.post2"
   license "Apache-2.0"
@@ -9,7 +9,7 @@ class Omlx < Formula
   # before the cap are seen as outdated and rebuilt.
   revision 1
 
-  head "git@github.com:Rubio-Enterprises/omlx.git", branch: "main"
+  head "https://github.com/Rubio-Enterprises/omlx.git", branch: "main"
 
   option "with-grammar", "Install xgrammar for structured output (requires torch, ~2GB)"
 

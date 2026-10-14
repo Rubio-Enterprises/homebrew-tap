@@ -1,0 +1,3 @@
+[tasks.test]
+description = "Reject SSH source transports in all formulas and casks (offline)"
+run = "ruby scripts/check-source-transports.rb"

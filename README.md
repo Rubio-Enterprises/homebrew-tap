@@ -37,9 +37,9 @@ With [Homebrew](https://brew.sh) installed:
 brew tap rubio-enterprises/tap
 ```
 
-The source-build formulas fetch organization repositories over SSH; access to
-those repositories is required. The QuickLook casks require macOS; `omlx`
-requires Apple Silicon.
+The source-build formulas fetch organization repositories over HTTPS; private
+repositories still require authorized GitHub access. The QuickLook casks require
+macOS; `omlx` requires Apple Silicon.
 
 ## Usage
 
@@ -112,9 +112,11 @@ and fill in the linked work item, What?, Why?, How?, Testing?, Feedback?, and
 Other Information or Known Dependencies sections (screenshots when relevant).
 Keep the body within 400 words.
 
-There is no `mise run lint` or `mise run test` task. Run the Markdown and
-other staged-file checks with `mise exec -- lefthook run pre-commit`. For
-formula/cask changes, run the Homebrew audits and style checks from
+Run `mise run test` (or `ruby scripts/check-source-transports.rb`) for the offline
+SSH source transport regression check across all formulas and casks. There is no
+`mise run lint` task. Run the Markdown and other staged-file checks with
+`mise exec -- lefthook run pre-commit`. For formula/cask changes, run the Homebrew
+audits and style checks from
 [AGENTS.md](AGENTS.md); CI also runs cask livecheck. When changing lint
 sidecars, regenerate their configs with `mise run lint-config`.
 

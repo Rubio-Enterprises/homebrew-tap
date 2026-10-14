@@ -17,6 +17,9 @@ jobs:
         with:
           token: ${{ github.token }}
 
+      - name: Check source transports (offline)
+        run: ruby scripts/check-source-transports.rb
+
       - name: Audit formulas
         run: brew audit --formula --tap rubio-enterprises/tap
 
@@ -28,7 +31,10 @@ jobs:
         # shell control-flow layout. The fleet formatter governs the
         # template-rendered scripts/** tree, so scope Homebrew style to the
         # Formula/ and Casks/ trees it owns, matching the *.rb-only fleet hook.
-        run: brew style "$(brew --repo rubio-enterprises/tap)"/{Formula,Casks}
+        run: |
+          tap="$(brew --repo rubio-enterprises/tap)"
+          test "$(git -C "$tap" rev-parse HEAD)" = "$GITHUB_SHA"
+          brew style "$tap"/{Formula,Casks}
 
       - name: Livecheck (casks)
         run: brew livecheck --cask --tap rubio-enterprises/tap
