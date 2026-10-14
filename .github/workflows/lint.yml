@@ -15,6 +15,7 @@ jobs:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@3cdb78d0f62ad29dd32de765782654f4eedea607 # main
         with:
+          stable: true
           token: ${{ github.token }}
 
       - name: Check source transports (offline)
