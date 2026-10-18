@@ -12,6 +12,7 @@ permissions:
 jobs:
   bump:
     runs-on: ${{ fromJSON(vars.RUNNERS || '{}').macos || fromJSON('["macos-latest"]') }}
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
