@@ -38,8 +38,8 @@ brew tap rubio-enterprises/tap
 ```
 
 The source-build formulas fetch organization repositories over HTTPS; private
-repositories still require authorized GitHub access. The QuickLook casks require
-macOS; `omlx` requires Apple Silicon.
+repositories still require authorized GitHub access. The QuickLook casks and
+`clippy` require macOS; `omlx` requires Apple Silicon.
 
 ## Usage
 
@@ -50,6 +50,18 @@ Install a formula and invoke its command, for example:
 ```bash
 brew install rubio-enterprises/tap/clipssh
 clipssh user@myserver
+```
+
+### clippy fork
+
+The Rubio fork adds `md2teams` for rich Markdown paste into Microsoft Teams and
+installs both `clippy` and `pasty`. It replaces homebrew-core's `clippy`; uninstall
+the core formula first if installed:
+
+```bash
+brew uninstall homebrew/core/clippy  # only if the core formula is installed
+brew install rubio-enterprises/tap/clippy
+clippy md2teams --help
 ```
 
 ### omlx service
@@ -77,6 +89,7 @@ Extensions > Quick Look**).
 
 | Formula | Description | Install |
 | --- | --- | --- |
+| `clippy` | Clipboard tools with Teams-ready Markdown paste (Rubio fork) | `brew install rubio-enterprises/tap/clippy` |
 | `clipssh` | Send clipboard images, including screenshots, to remote SSH hosts | `brew install rubio-enterprises/tap/clipssh` |
 | `gmaps-sync` | One-way sync from Google Maps saved places to local JSON | `brew install rubio-enterprises/tap/gmaps-sync` |
 | `mo` | Markdown viewer that opens .md files in a browser | `brew install rubio-enterprises/tap/mo` |
@@ -102,6 +115,14 @@ brew livecheck --cask --tap rubio-enterprises/tap   # check for new upstream cas
 ```
 
 Formula versions are bumped automatically when source repos push new tags.
+`clippy`, `mo`, and `taskjuggler` use `v<upstream>-strubio.<N>` tags and explicit
+fork versions.
+
+A new `:git` formula lands before its first release tag, pinned to the full
+commit SHA that tag will reference. The reusable bump workflow only updates an
+existing formula; a tag pushed before the formula lands fails with
+`Formula/<name>.rb not found`, and rerunning that tag workflow after landing
+recovers it.
 
 ## Contributing
 
