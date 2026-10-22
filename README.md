@@ -39,7 +39,7 @@ brew tap rubio-enterprises/tap
 
 The source-build formulas fetch organization repositories over HTTPS; private
 repositories still require authorized GitHub access. The QuickLook casks and
-`clippy` require macOS; `omlx` requires Apple Silicon.
+`clippy` require macOS.
 
 ## Usage
 
@@ -64,16 +64,6 @@ brew install rubio-enterprises/tap/clippy
 clippy md2teams --help
 ```
 
-### omlx service
-
-Runs as a launchd service via `brew services`:
-
-```bash
-brew install rubio-enterprises/tap/omlx --with-grammar
-brew services start omlx
-tail -f "$(brew --prefix)/var/log/omlx.log"
-```
-
 ### QuickLook extensions
 
 ```bash
@@ -91,9 +81,7 @@ Extensions > Quick Look**).
 | --- | --- | --- |
 | `clippy` | Clipboard tools with Teams-ready Markdown paste (Rubio fork) | `brew install rubio-enterprises/tap/clippy` |
 | `clipssh` | Send clipboard images, including screenshots, to remote SSH hosts | `brew install rubio-enterprises/tap/clipssh` |
-| `gmaps-sync` | One-way sync from Google Maps saved places to local JSON | `brew install rubio-enterprises/tap/gmaps-sync` |
 | `mo` | Markdown viewer that opens .md files in a browser | `brew install rubio-enterprises/tap/mo` |
-| `omlx` | LLM inference server optimized for Apple Silicon | `brew install rubio-enterprises/tap/omlx` |
 | `taskjuggler` | Project scheduler with interactive htmljs Gantt reports (Rubio fork) | `brew install rubio-enterprises/tap/taskjuggler` |
 
 ## Casks
