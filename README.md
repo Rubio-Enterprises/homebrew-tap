@@ -129,20 +129,28 @@ recovers it.
 
 Organization members can raise questions in this repository's issues and submit
 changes through pull requests. Follow the
-[PR template](.github/PULL_REQUEST_TEMPLATE.md): use a Conventional Commits title
+[organization PR template](https://github.com/Rubio-Enterprises/.github/blob/main/.github/PULL_REQUEST_TEMPLATE.md):
+use a Conventional Commits title
 and fill in the linked work item, What?, Why?, How?, Testing?, Feedback?, and
 Other Information or Known Dependencies sections (screenshots when relevant).
 Keep the body within 400 words.
 
+After cloning, run `mise trust && mise bootstrap --only repos,tools --yes` once.
+It clones the shared standards config into the gitignored `.standards-config/`
+and installs the pinned tools. The Git hooks and lint configs read that checkout
+and fail without it; `mise run setup` refreshes it later.
+
 Run `mise run test` (or `ruby scripts/check-source-transports.rb`) for the offline
 SSH source transport regression check across all formulas and casks. There is no
 `mise run lint` task. Run the Markdown and other staged-file checks with
-`mise exec -- lefthook run pre-commit`. For formula/cask changes, run the Homebrew
+`mise exec -- lefthook run pre-commit`, or every check over every file with
+`mise run check`. For formula/cask changes, run the Homebrew
 audits and style checks from
 [AGENTS.md](AGENTS.md); CI also runs cask livecheck. CI selects current stable
 Homebrew before linting instead of relying on the runner image's bundled version.
-This updates Homebrew itself, not installed formulae or casks. When changing lint
-sidecars, regenerate their configs with `mise run lint-config`.
+This updates Homebrew itself, not installed formulae or casks. Repository lint
+exceptions go in each tool's own config file, such as `.yamllint` or
+`.markdownlint-cli2.cjs`, or in `lefthook-local.yml`.
 
 ## License
 
