@@ -64,6 +64,17 @@ brew install rubio-enterprises/tap/clippy
 clippy md2teams --help
 ```
 
+### Reelbird
+
+```bash
+brew install --cask rubio-enterprises/tap/reelbird
+reelbird sources
+```
+
+The cask links the app's bundled `reelbird` CLI onto `PATH`. Reelbird is
+signed and notarized, needs an Apple silicon Mac on macOS 15 or later, and never
+updates itself: `brew upgrade` installs new releases once the cask is bumped.
+
 ### QuickLook extensions
 
 ```bash
@@ -86,11 +97,13 @@ Extensions > Quick Look**).
 
 ## Casks
 
-Unsigned QuickLook extensions removed from the official Homebrew cask repository
-due to failing macOS Gatekeeper checks.
+The QuickLook extensions are unsigned and were removed from the official
+Homebrew cask repository due to failing macOS Gatekeeper checks. Reelbird is
+signed but too new for the official repository's notability threshold.
 
 | Cask | App | Version | Upstream |
 | --- | --- | --- | --- |
+| `reelbird` | Reelbird | 0.3.1 | [btahir/reelbird](https://github.com/btahir/reelbird) |
 | `syntax-highlight` | Syntax Highlight | 2.1.27 | [sbarex/SourceCodeSyntaxHighlight](https://github.com/sbarex/SourceCodeSyntaxHighlight) |
 | `qlmarkdown` | QLMarkdown | 1.0.24 | [sbarex/QLMarkdown](https://github.com/sbarex/QLMarkdown) |
 

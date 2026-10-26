@@ -28,7 +28,7 @@ jobs:
         run: brew audit --cask --tap rubio-enterprises/tap
 
       - name: Style check
-        run: brew style --cask rubio-enterprises/tap/syntax-highlight rubio-enterprises/tap/qlmarkdown
+        run: brew style "$(brew --repo rubio-enterprises/tap)/Casks"
 
       - name: Bump outdated casks (write-only)
         run: |
