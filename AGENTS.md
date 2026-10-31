@@ -1,6 +1,7 @@
 # Agent context
 
-This repo follows Rubio-Enterprises standards. Run `/audit-standards` from a Claude Code session to check conformance, or `/onboard-repo` for greenfield setup.
+This repo follows the `@rubio-enterprises/standards` package: set up with `mise run setup`, run
+the Checks with `mise run check`.
 
 Repo-specific context (in-progress migrations, gotchas, agent guidance):
 
@@ -38,8 +39,8 @@ brew bump-cask-pr --write-only --no-audit --no-style "rubio-enterprises/tap/<cas
 
 - No explicit livecheck block — Homebrew auto-detects the `:git` strategy from the stable URL (`git ls-remote --tags`). Do not use `strategy :github_latest` (requires GitHub Releases, which these repos don't create).
 - Formula version bumps are automated from each source repo's CI on tag push, and **the mechanism depends on the formula's shape** — there are exactly two, so check which one applies before touching anything:
-  - **`:git` formulas** (`clippy`, `clipssh`, `taskjuggler`) call the org reusable `Rubio-Enterprises/.github/.github/workflows/bump-brew.yml`, which rewrites `tag:`/`revision:`. It hard-refuses anything without `using: :git` (`grep -q 'using: :git' || exit 1`), so it can never bump `mo`.
-  - **`mo`** (prebuilt archives, four `url` + `sha256` pairs) has its own `bump-tap` job in `Rubio-Enterprises/mo`'s `.github/workflows/tagpr.yml`, which recomputes the checksums from the published release assets and PUTs the whole formula via `gh api`. Re-drivable for an already published tag with `gh workflow run tagpr.yml -f tag=<tag>`.
+  - **`:git` formulas** (`clippy`, `clipssh`, `taskjuggler`) call the org reusable [bump-brew.yml](https://github.com/Rubio-Enterprises/.github/blob/main/.github/workflows/bump-brew.yml), which rewrites `tag:`/`revision:`. It hard-refuses anything without `using: :git` (`grep -q 'using: :git' || exit 1`), so it can never bump `mo`.
+  - **`mo`** (prebuilt archives, four `url` + `sha256` pairs) has its own `bump-tap` job in `Rubio-Enterprises/mo`'s [tagpr.yml](https://github.com/Rubio-Enterprises/mo/blob/main/.github/workflows/tagpr.yml), which recomputes the checksums from the published release assets and PUTs the whole formula via `gh api`. Re-drivable for an already published tag with `gh workflow run tagpr.yml -f tag=<tag>`.
 - Both paths authenticate as the per-run `rubio-tap-push` App (`contents:write`, scoped to this repo) and **push straight to `main`**. That works because the App holds an `always` ruleset bypass declared in `.github-private`'s terraform — human PRs against this tap stay fully gated. If a bump ever 409s with "Changes must be made through a pull request", the bypass is the thing to check, not the workflow.
 - Either way the formula is **machine-generated**: hand-editing a bumped field here is pointless, because the next release overwrites it. Fix the generator in the source repo.
 - `clippy`, `mo`, and `taskjuggler` carry the fork tag convention: source tags are `v<upstream>-strubio.<N>` (e.g. `v1.6.7-strubio.1`) and the formula `version` is that tag minus its leading `v` (`1.6.7-strubio.1`). For `clippy` and `taskjuggler` that `version` line is load-bearing: Homebrew scans only the upstream version out of the fork tag, so without it `brew outdated` would never see a `-strubio.2` bump. The reusable updates an existing `version` line but never inserts one.
