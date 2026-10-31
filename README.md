@@ -135,16 +135,13 @@ and fill in the linked work item, What?, Why?, How?, Testing?, Feedback?, and
 Other Information or Known Dependencies sections (screenshots when relevant).
 Keep the body within 400 words.
 
-After cloning, run `mise trust && mise bootstrap --only repos,tools --yes` once.
-It clones the shared standards config into the gitignored `.standards-config/`
-and installs the pinned tools. The Git hooks and lint configs read that checkout
-and fail without it; `mise run setup` refreshes it later.
+After cloning, run `export NODE_AUTH_TOKEN="$(gh auth token)"` and
+`mise trust && mise run setup` once. Setup installs the `@rubio-enterprises/standards`
+package into the gitignored `.standards/`, the pinned tools and the Git hooks.
 
-Run `mise run test` (or `ruby scripts/check-source-transports.rb`) for the offline
-SSH source transport regression check across all formulas and casks. There is no
-`mise run lint` task. Run the Markdown and other staged-file checks with
-`mise exec -- lefthook run pre-commit`, or every check over every file with
-`mise run check`. For formula/cask changes, run the Homebrew
+`mise run check` runs every Check over every file, including `brew style` and the offline
+SSH source transport check (`ruby scripts/check-source-transports.rb`) across all formulas
+and casks. There are no Lifecycle Tasks (no `test`). For formula/cask changes, run the Homebrew
 audits and style checks from
 [AGENTS.md](AGENTS.md); CI also runs cask livecheck. CI selects current stable
 Homebrew before linting instead of relying on the runner image's bundled version.
