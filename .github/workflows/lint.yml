@@ -5,6 +5,11 @@ on:
     branches: [main]
   pull_request:
 
+# A pull request's newer revision cancels the older run; pushes to main group by SHA.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     runs-on: ${{ fromJSON(vars.RUNNERS || '{}').macos || fromJSON('["macos-26"]') }}
