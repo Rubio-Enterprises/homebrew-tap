@@ -10,7 +10,7 @@ Repo-specific context (in-progress migrations, gotchas, agent guidance):
 Personal Homebrew tap (`rubio-enterprises/tap`) distributing:
 
 - **Formulas** (`Formula/`): four, in two distribution shapes that matter when bumping them — `:git` source builds (`clippy`, `clipssh`, `taskjuggler`) and prebuilt release archives with per-arch `sha256` (`mo`). See "Formulas" under Key Patterns.
-- **Casks** (`Casks/`): macOS apps — `qlmarkdown` and `syntax-highlight` (unsigned QuickLook extensions) and `reelbird` (signed, but below homebrew-cask's notability threshold)
+- **Casks** (`Casks/`): macOS apps — `qlmarkdown` and `syntax-highlight` (unsigned QuickLook extensions)
 
 ## Common Commands
 
@@ -52,9 +52,8 @@ brew bump-cask-pr --write-only --no-audit --no-style "rubio-enterprises/tap/<cas
 ### Casks
 
 - The QuickLook casks are **unsigned** — the `postflight` block removes `com.apple.quarantine` via `xattr -dr` (this is why they live here instead of homebrew-cask). Their livecheck uses a custom Sparkle strategy to work around Italian locale date parsing, and they set `auto_updates true` because both apps self-update via Sparkle
-- `reelbird` is signed and notarized, so it has no quarantine postflight. It never self-updates (no `auto_updates`), and livecheck follows GitHub's latest release. `brew audit --new` fails only on GitHub notability; the tap's non-`--new` audit passes
 - Every cask's `binary` stanza links the CLI bundled in the app onto `PATH`
-- `zap trash` lists all Library paths for clean uninstall; user recordings and Keychain items stay
+- `zap trash` lists all Library paths for clean uninstall
 
 ### Updating a formula version
 
