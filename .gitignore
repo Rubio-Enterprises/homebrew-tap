@@ -23,3 +23,5 @@ reports/
 .standards/
 # Personal lefthook overrides
 lefthook-local.yml
+.venv/
+/.mise/

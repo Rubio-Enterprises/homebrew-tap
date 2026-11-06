@@ -1,8 +1,8 @@
 {
   "name": "homebrew-tap",
-  "image": "ghcr.io/rubio-enterprises/homebrew-tap/devcontainer:main",
-  "onCreateCommand": "mise run setup",
-  "remoteEnv": {
-    "NODE_AUTH_TOKEN": "${localEnv:NODE_AUTH_TOKEN}"
-  }
+  "dockerComposeFile": ["../compose.yaml"],
+  "service": "dev",
+  "workspaceFolder": "${localWorkspaceFolder}",
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": false
 }
