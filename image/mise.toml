@@ -1,7 +1,7 @@
 # Repository toolchain pins only, installed by Dockerfile
 # Check tools are supplied by base at /opt/standards
 [tools]
-node = "24.22.1"
+node = "24.22.2"
 # The source-transports Check runs a Ruby script; the Dev Container has no Ruby.
 ruby = "3.4.12"
 "aqua:jdx/mise" = { version = "2026.11.1", os = ["macos"] }
