@@ -6,43 +6,32 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 jobs:
+  route:
+    uses: Rubio-Enterprises/.github/.github/workflows/project-route.yml@main
+    with:
+      route: macos
+
   bump:
-    runs-on: ${{ fromJSON(vars.RUNNERS || '{}').macos || fromJSON('["macos-26"]') }}
+    permissions:
+      contents: write
+      pull-requests: write
+    needs: route
+    runs-on: ${{ fromJSON(needs.route.outputs.runner) }}
     timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
-
-      - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@3cdb78d0f62ad29dd32de765782654f4eedea607 # main
-        with:
-          token: ${{ github.token }}
-
-      - name: Audit casks
-        run: brew audit --cask --tap rubio-enterprises/tap
-
-      - name: Style check
-        run: brew style "$(brew --repo rubio-enterprises/tap)/Casks"
-
-      - name: Bump outdated casks (write-only)
-        run: |
-          outdated=$(brew livecheck --tap rubio-enterprises/tap --json \
-            | jq -r '.[] | select(.version.outdated == true) | .cask')
-          if [ -z "$outdated" ]; then
-            echo "All casks are up to date."
-            exit 0
-          fi
-          for cask in $outdated; do
-            echo "Bumping $cask..."
-            brew bump-cask-pr --write-only --no-audit --no-style "rubio-enterprises/tap/$cask"
-          done
-
+      - uses: Rubio-Enterprises/.github/actions/setup-just@main
+      - name: Audit and bump casks
+        run: just bump-casks
+        env:
+          HOMEBREW_GITHUB_API_TOKEN: ${{ github.token }}
+          XDG_CONFIG_HOME: ${{ runner.temp }}/tap-config
       - name: Create pull request
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:
