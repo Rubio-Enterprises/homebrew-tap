@@ -19,3 +19,6 @@ elif [ -e "$tap" ]; then
 else
   ln -s "$checkout" "$tap"
 fi
+if [ "${CI:-}" = true ]; then
+  brew trust rubio-enterprises/tap
+fi

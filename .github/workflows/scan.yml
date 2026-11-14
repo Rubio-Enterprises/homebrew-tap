@@ -32,3 +32,4 @@ jobs:
         run: just tap-lint
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{ github.token }}
+          XDG_CONFIG_HOME: ${{ runner.temp }}/tap-config
