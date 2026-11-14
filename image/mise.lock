@@ -49,20 +49,20 @@ url_api = "https://api.github.com/repos/evilmartians/lefthook/releases/assets/63
 provenance = "github-attestations"
 
 [[tools."aqua:jdx/mise"]]
-version = "2026.11.1"
+version = "2026.11.3"
 backend = "aqua:jdx/mise"
-specifiers = ["2026.11.1"]
+specifiers = ["2026.11.3"]
 
 [tools."aqua:jdx/mise"."platforms.macos-arm64"]
-checksum = "sha256:e1eaf20469e586f65849256a0be6a58dd7a3e93ae8db68bc74dd7af5ca0fe7f6"
-url = "https://github.com/jdx/mise/releases/download/v2026.11.1/mise-v2026.11.1-macos-arm64.tar.gz"
-url_api = "https://api.github.com/repos/jdx/mise/releases/assets/710586212"
+checksum = "sha256:de9a54330fee4edede51a3cf6196bbf522f01c5e3fd981e0bebea33f561a0431"
+url = "https://github.com/jdx/mise/releases/download/v2026.11.3/mise-v2026.11.3-macos-arm64.tar.gz"
+url_api = "https://api.github.com/repos/jdx/mise/releases/assets/716895418"
 provenance = "minisign"
 
 [tools."aqua:jdx/mise"."platforms.macos-x64"]
-checksum = "sha256:c22089a8cb02e8e3eca09b45aad2674bf537313692bf105e9b8e5ab24ce8552f"
-url = "https://github.com/jdx/mise/releases/download/v2026.11.1/mise-v2026.11.1-macos-x64.tar.gz"
-url_api = "https://api.github.com/repos/jdx/mise/releases/assets/710586325"
+checksum = "sha256:88389a4a624a7279ec8d2d06e5c0fbd874ce4f5de791767883b32f62f4e1d62c"
+url = "https://github.com/jdx/mise/releases/download/v2026.11.3/mise-v2026.11.3-macos-x64.tar.gz"
+url_api = "https://api.github.com/repos/jdx/mise/releases/assets/716895508"
 provenance = "minisign"
 
 [[tools."aqua:mikefarah/yq"]]
