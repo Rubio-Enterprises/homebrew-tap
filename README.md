@@ -129,6 +129,7 @@ macOS tools and Git hooks.
 For formula and cask changes, run `just tap-lint` on macOS. It checks source transports,
 audits and styles the checkout, and runs cask livecheck. It binds the tap to the checkout;
 outside CI, set `HOMEBREW_TAP_BIND=1` explicitly and ensure no other tap occupies that path.
+CI updates Homebrew to the current stable release before validation and cask bumps.
 Repository lint exceptions go in each tool's own config file, such as `.yamllint` or
 `.markdownlint-cli2.cjs`, or in `lefthook-local.yml`.
 

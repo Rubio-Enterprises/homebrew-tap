@@ -5,6 +5,9 @@ if [ "${CI:-}" != true ] && [ "${HOMEBREW_TAP_BIND:-}" != 1 ]; then
   echo 'Set HOMEBREW_TAP_BIND=1 to bind the tap on this machine.' >&2
   exit 1
 fi
+if [ "${CI:-}" = true ]; then
+  HOMEBREW_UPDATE_TO_TAG=1 brew update
+fi
 checkout=$(git rev-parse --show-toplevel)
 tap="$(brew --repository)/Library/Taps/rubio-enterprises/homebrew-tap"
 mkdir -p "$(dirname "$tap")"

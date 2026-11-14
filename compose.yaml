@@ -3,8 +3,6 @@ services:
     build:
       context: .
       target: dev
-      args:
-        BASE_SHA: ${BASE_SHA:-}
       secrets:
         - GITHUB_TOKEN
     pull_policy: missing
@@ -12,6 +10,7 @@ services:
     init: true
     command: sleep infinity
     environment:
+      - BASE_SHA
       - GH_TOKEN
       - LEFTHOOK
       - RUBIO_VOLUME_DIRS=${REPO_DIR}/.venv:${REPO_DIR}/node_modules:/home/vscode/.cache/uv:/home/vscode/.cache/npm:/home/vscode/.cache/gomod:/home/vscode/.cache/cargo/registry:/home/vscode/.cache/coursier

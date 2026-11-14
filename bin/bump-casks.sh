@@ -1,6 +1,5 @@
 #!/bin/sh
 set -eu
-bin/tap-bind.sh
 json=$(mktemp)
 outdated=$(mktemp)
 trap 'rm -f "$json" "$outdated"' EXIT HUP INT TERM
