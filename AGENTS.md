@@ -1,27 +1,20 @@
 # Agent context
 
-First command in a fresh checkout: `just build`.
-Never install toolchains on the host — use the dev image through `just`, except for the native macOS toolchain.
+## Commands
 
-```bash
-just build
-just setup
-just check
-just fmt
-just check-pr
-just shell
-just exec <cmd...>
-```
+Run project commands through `just`: image Checks run in the dev image, while Homebrew Checks run on macOS with isolated repository tools.
 
-Single test: `just exec uv run pytest path::test` (Python); otherwise prefix the underlying runner with `just exec`.
+In a fresh checkout: `just build`, then `just setup`. `just --list` shows the recipes.
+
+`just tap-lint` binds the tap to this checkout and requires `CI=true` or explicit `HOMEBREW_TAP_BIND=1`. It refuses to replace an existing tap.
+
+## Conventions
 
 - **Architecture decisions**: an ADR records why a rule exists. Before changing a decision, check
   `docs/adr/` for an accepted ADR; reversing one needs a superseding ADR. Write one only if a
   person approved it: in the session, or in an approved plan or `spec:agent` issue that
   names the ADR. Otherwise the PR description is the record. Follow
   [the format](docs/adr/0001-record-architecture-decisions.md), which states the ADR test.
-
-Repo-specific context (in-progress migrations, gotchas, agent guidance):
 
 ## Overview
 
@@ -30,25 +23,9 @@ Personal Homebrew tap (`rubio-enterprises/tap`) distributing:
 - **Formulas** (`Formula/`): four, in two distribution shapes that matter when bumping them — `:git` source builds (`clippy`, `clipssh`, `taskjuggler`) and prebuilt release archives with per-arch `sha256` (`mo`). See "Formulas" under Key Patterns.
 - **Casks** (`Casks/`): macOS apps — `qlmarkdown` and `syntax-highlight` (unsigned QuickLook extensions)
 
-## Common Commands
-
-```bash
-# Lint & validate
-brew audit --formula --tap rubio-enterprises/tap
-brew audit --cask --tap rubio-enterprises/tap
-brew style rubio-enterprises/tap
-
-# Check for upstream version updates
-brew livecheck --tap rubio-enterprises/tap
-brew livecheck --cask --tap rubio-enterprises/tap
-
-# Bump a cask version (writes locally, no PR)
-brew bump-cask-pr --write-only --no-audit --no-style "rubio-enterprises/tap/<cask-name>"
-```
-
 ## CI/CD
 
-- **`lint.yml`**: Runs on every push to main and all PRs. Audits formulas/casks, checks style, and runs cask livecheck.
+- **`scan.yml`**: Runs on every push to main and all PRs. Audits formulas/casks, checks style, and runs cask livecheck.
 - **`bump-casks.yml`**: Monthly cron (1st of month, 9 AM UTC) + manual dispatch. Detects outdated casks via `brew livecheck --json`, bumps versions, and opens a PR for review.
 
 ## Key Patterns
@@ -79,4 +56,4 @@ Use the source repo's bump path above: `:git` formulas update `tag:`/`revision:`
 
 For a new `:git` formula, merge it into the tap before pushing its first release tag. `bump-brew.yml` fails with `Formula/<name>.rb not found` rather than creating a formula. The initial formula must pin the full commit SHA the planned tag will reference. An empty revision disables Homebrew's tag-integrity check.
 
-After changes, run `brew audit --formula --tap rubio-enterprises/tap && brew style rubio-enterprises/tap`.
+After changes, run `just tap-lint` on macOS.

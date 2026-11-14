@@ -1,0 +1,5 @@
+[workflows."scan.yml"]
+reason = "Validate the checked-out Homebrew tap on macOS."
+
+[workflows."bump-casks.yml"]
+reason = "Find and propose updated cask versions each month."

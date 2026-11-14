@@ -122,18 +122,14 @@ and fill in the linked work item, What?, Why?, How?, Testing?, Feedback?, and
 Other Information or Known Dependencies sections (screenshots when relevant).
 Keep the body within 400 words.
 
-After cloning, run `export NODE_AUTH_TOKEN="$(gh auth token)"` and
-`mise trust && mise run setup` once. Setup installs the `@rubio-enterprises/standards`
-package into the gitignored `.standards/`, the pinned tools and the Git hooks.
+After cloning, run `just build` and `just setup` to prepare the dev image, isolated
+macOS tools and Git hooks.
 
-`mise run check` runs every Check over every file, including `brew style` and the offline
-SSH source transport check (`ruby scripts/check-source-transports.rb`) across all formulas
-and casks. There are no Lifecycle Tasks (no `test`). For formula/cask changes, run the Homebrew
-audits and style checks from
-[AGENTS.md](AGENTS.md); CI also runs cask livecheck. CI selects current stable
-Homebrew before linting instead of relying on the runner image's bundled version.
-This updates Homebrew itself, not installed formulae or casks. Repository lint
-exceptions go in each tool's own config file, such as `.yamllint` or
+`just check` runs the image and macOS Checks. There is no `test` Lifecycle Task.
+For formula and cask changes, run `just tap-lint` on macOS. It checks source transports,
+audits and styles the checkout, and runs cask livecheck. It binds the tap to the checkout;
+outside CI, set `HOMEBREW_TAP_BIND=1` explicitly and ensure no other tap occupies that path.
+Repository lint exceptions go in each tool's own config file, such as `.yamllint` or
 `.markdownlint-cli2.cjs`, or in `lefthook-local.yml`.
 
 ## License

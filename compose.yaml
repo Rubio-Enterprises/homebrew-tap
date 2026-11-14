@@ -3,6 +3,8 @@ services:
     build:
       context: .
       target: dev
+      args:
+        BASE_SHA: ${BASE_SHA:-}
       secrets:
         - GITHUB_TOKEN
     pull_policy: missing
@@ -18,8 +20,8 @@ services:
         source: ${REPO_DIR}
         target: ${REPO_DIR}
       - type: bind
-        source: ${GIT_COMMON_DIR}
-        target: ${GIT_COMMON_DIR}
+        source: ${RUBIO_GIT_COMMON_DIR:-${GIT_COMMON_DIR}}
+        target: ${RUBIO_GIT_COMMON_DIR:-${GIT_COMMON_DIR}}
       - type: volume
         source: venv
         target: ${REPO_DIR}/.venv
