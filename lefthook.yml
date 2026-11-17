@@ -13,6 +13,7 @@ pre-commit:
       run: test -f /opt/standards/lefthook/standards.yml
       fail_text: "run this inside the dev image: just check"
     - name: source transports
+      tags: [whole-tree]
       glob: "{Formula,Casks}/**/*.rb"
       run: mise exec -- ruby scripts/check-source-transports.rb
       fail_text: "formulas and casks fetch sources over HTTPS, never SSH"
