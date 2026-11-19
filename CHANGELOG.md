@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/Rubio-Enterprises/homebrew-tap/compare/v1.2.0...v1.2.1) (2026-11-19)
+
+
+### Bug Fixes
+
+* **checks:** take the 7.1.0 macos check config starter ([#284](https://github.com/Rubio-Enterprises/homebrew-tap/issues/284)) ([200572d](https://github.com/Rubio-Enterprises/homebrew-tap/commit/200572d726cf65f774cc21603fd1e022065bfd09))
+
 ## [1.2.0](https://github.com/Rubio-Enterprises/homebrew-tap/compare/v1.1.0...v1.2.0) (2026-11-17)
 
 
