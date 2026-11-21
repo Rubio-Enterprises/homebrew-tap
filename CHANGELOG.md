@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3](https://github.com/Rubio-Enterprises/homebrew-tap/compare/v1.2.2...v1.2.3) (2026-11-21)
+
+
+### Bug Fixes
+
+* **just:** read the macos npm fallback version from the base tag, not its digest ([#289](https://github.com/Rubio-Enterprises/homebrew-tap/issues/289)) ([12171c3](https://github.com/Rubio-Enterprises/homebrew-tap/commit/12171c396cba0fec4ce4bd9d74efab1de0a22f3c))
+
 ## [1.2.2](https://github.com/Rubio-Enterprises/homebrew-tap/compare/v1.2.1...v1.2.2) (2026-11-21)
 
 
