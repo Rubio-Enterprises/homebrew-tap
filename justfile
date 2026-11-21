@@ -38,7 +38,7 @@ setup-macos:
         cid="$(docker create "$base")"; trap 'docker rm "$cid" >/dev/null' EXIT; \
         docker cp "$cid:/opt/standards/." .standards/; \
     else \
-        version="${base##*:}"; case "$version" in main) version=latest ;; v*) version="${version#v}" ;; esac; \
+        version="${base%@*}"; version="${version##*:}"; case "$version" in main) version=latest ;; v*) version="${version#v}" ;; esac; \
         tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT; \
         NODE_AUTH_TOKEN="${NODE_AUTH_TOKEN:-${GH_TOKEN:-${GITHUB_TOKEN:-}}}" env \
             'npm_config_@rubio-enterprises:registry=https://npm.pkg.github.com' \
