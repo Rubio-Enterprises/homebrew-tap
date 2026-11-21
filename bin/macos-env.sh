@@ -8,7 +8,11 @@ if [ -z "${RUBIO_JUST_BIN:-}" ]; then
 fi
 export MISE_DATA_DIR="$REPO_DIR/.mise"
 export MISE_SHIMS_DIR="$MISE_DATA_DIR/shims"
-export MISE_CACHE_DIR="$MISE_DATA_DIR/cache"
+if [ "${GITHUB_ACTIONS:-}" = true ]; then
+  export MISE_CACHE_DIR="$RUNNER_TEMP/macos-tools/cache"
+else
+  export MISE_CACHE_DIR="$MISE_DATA_DIR/cache"
+fi
 export MISE_STATE_DIR="$MISE_DATA_DIR/state"
 export MISE_CONFIG_DIR="$MISE_DATA_DIR/config"
 export MISE_SYSTEM_CONFIG_DIR="$MISE_DATA_DIR/system"
