@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/Rubio-Enterprises/homebrew-tap/compare/v1.2.1...v1.2.2) (2026-11-21)
+
+
+### Bug Fixes
+
+* **ci:** use the shared macos mise download cache ([#286](https://github.com/Rubio-Enterprises/homebrew-tap/issues/286)) ([833cca5](https://github.com/Rubio-Enterprises/homebrew-tap/commit/833cca5342920a2dfdad4da804453b7f707efebb))
+
 ## [1.2.1](https://github.com/Rubio-Enterprises/homebrew-tap/compare/v1.2.0...v1.2.1) (2026-11-19)
 
 
