@@ -13,12 +13,6 @@ checksum_source = "mise-versions"
 url = "https://github.com/cpisciotta/xcbeautify/releases/download/3.2.1/xcbeautify-3.2.1-arm64-apple-macosx.zip"
 url_api = "https://api.github.com/repos/cpisciotta/xcbeautify/releases/assets/388376615"
 
-[tools."aqua:cpisciotta/xcbeautify"."platforms.macos-x64"]
-checksum = "sha256:ba65e8efc2ebe8c6f13393aaeb88a0ff849278d9480ee1496affaa3db781ac6e"
-checksum_source = "mise-versions"
-url = "https://github.com/cpisciotta/xcbeautify/releases/download/3.2.1/xcbeautify-3.2.1-x86_64-apple-macosx.zip"
-url_api = "https://api.github.com/repos/cpisciotta/xcbeautify/releases/assets/388376611"
-
 [[tools."aqua:evilmartians/lefthook"]]
 version = "2.2.2"
 backend = "aqua:evilmartians/lefthook"
@@ -42,12 +36,6 @@ url = "https://github.com/evilmartians/lefthook/releases/download/v2.2.2/lefthoo
 url_api = "https://api.github.com/repos/evilmartians/lefthook/releases/assets/636518817"
 provenance = "github-attestations"
 
-[tools."aqua:evilmartians/lefthook"."platforms.macos-x64"]
-checksum = "sha256:016e560b0cc982f45df14c301509e05b5c4265655eea996495093cd0c632063a"
-url = "https://github.com/evilmartians/lefthook/releases/download/v2.2.2/lefthook_2.2.2_MacOS_x86_64.gz"
-url_api = "https://api.github.com/repos/evilmartians/lefthook/releases/assets/636518821"
-provenance = "github-attestations"
-
 [[tools."aqua:jdx/mise"]]
 version = "2026.11.8"
 backend = "aqua:jdx/mise"
@@ -57,12 +45,6 @@ specifiers = ["2026.11.8"]
 checksum = "sha256:7a7f9342559cc4ca670054337ecf497e69d832a05f66e531628381dc92b88f48"
 url = "https://github.com/jdx/mise/releases/download/v2026.11.8/mise-v2026.11.8-macos-arm64.tar.gz"
 url_api = "https://api.github.com/repos/jdx/mise/releases/assets/743668781"
-provenance = "minisign"
-
-[tools."aqua:jdx/mise"."platforms.macos-x64"]
-checksum = "sha256:355729a12f3d3b23059ad372855a82f5c8720d1d3fb63dbe5068bc9b4952201c"
-url = "https://github.com/jdx/mise/releases/download/v2026.11.8/mise-v2026.11.8-macos-x64.tar.gz"
-url_api = "https://api.github.com/repos/jdx/mise/releases/assets/743668941"
 provenance = "minisign"
 
 [[tools."aqua:mikefarah/yq"]]
@@ -88,24 +70,12 @@ url = "https://github.com/mikefarah/yq/releases/download/v4.54.3/yq_darwin_arm64
 url_api = "https://api.github.com/repos/mikefarah/yq/releases/assets/726219940"
 provenance = "cosign"
 
-[tools."aqua:mikefarah/yq"."platforms.macos-x64"]
-checksum = "sha256:96d5105ffd693d6845c54fbd825b2d1bbdb8619e0a2ce6af95e5654e841e0984"
-url = "https://github.com/mikefarah/yq/releases/download/v4.54.3/yq_darwin_amd64"
-url_api = "https://api.github.com/repos/mikefarah/yq/releases/assets/726219934"
-provenance = "cosign"
-
 [[tools."aqua:realm/SwiftLint"]]
 version = "0.65.1"
 backend = "aqua:realm/SwiftLint"
 specifiers = ["0.65.1"]
 
 [tools."aqua:realm/SwiftLint"."platforms.macos-arm64"]
-checksum = "sha256:c1e429b0599cf1b516f369a2d9ec04eaf0e436f3c12b637df8851fa52ff694d0"
-checksum_source = "mise-versions"
-url = "https://github.com/realm/SwiftLint/releases/download/0.65.1/portable_swiftlint.zip"
-url_api = "https://api.github.com/repos/realm/SwiftLint/releases/assets/524187565"
-
-[tools."aqua:realm/SwiftLint"."platforms.macos-x64"]
 checksum = "sha256:c1e429b0599cf1b516f369a2d9ec04eaf0e436f3c12b637df8851fa52ff694d0"
 checksum_source = "mise-versions"
 url = "https://github.com/realm/SwiftLint/releases/download/0.65.1/portable_swiftlint.zip"
@@ -127,10 +97,6 @@ url = "https://nodejs.org/dist/v24.22.3/node-v24.22.3-linux-x64.tar.gz"
 [tools.node."platforms.macos-arm64"]
 checksum = "sha256:ff6e17d4874b76d272212b908cc020d6e815fba5a6c7eaaa06add725840307fd"
 url = "https://nodejs.org/dist/v24.22.3/node-v24.22.3-darwin-arm64.tar.gz"
-
-[tools.node."platforms.macos-x64"]
-checksum = "sha256:977614af0504c81045e7fd85596dbca0e5f951b96681516dadafedcca8c447f7"
-url = "https://nodejs.org/dist/v24.22.3/node-v24.22.3-darwin-x64.tar.gz"
 
 [[tools.ruby]]
 version = "3.4.12"
@@ -157,7 +123,3 @@ provenance = "github-attestations"
 checksum = "sha256:865b429c511c40a96fe3c25466bbf9b300e5cae22c70c7dd68e0af003b849de4"
 url = "https://github.com/jdx/ruby/releases/download/3.4.12-1/ruby-3.4.12.macos.tar.gz"
 provenance = "github-attestations"
-
-[tools.ruby."platforms.macos-x64"]
-checksum = "sha256:5e5d85ad93b0adcccbad47733680f4892bd0078e3342437f7babce01c1872479"
-url = "https://cache.ruby-lang.org/pub/ruby/3.4/ruby-3.4.12.tar.gz"

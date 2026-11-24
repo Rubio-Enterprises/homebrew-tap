@@ -122,11 +122,11 @@ and fill in the linked work item, What?, Why?, How?, Testing?, Feedback?, and
 Other Information or Known Dependencies sections (screenshots when relevant).
 Keep the body within 400 words.
 
-After cloning, run `just build` and `just setup` to prepare the dev image, isolated
+After cloning, run `just build-dev` and `just setup` to prepare the dev image, isolated
 macOS tools and Git hooks.
 
 `just check` runs the image and macOS Checks. There is no `test` Lifecycle Task.
-For formula and cask changes, run `just tap-lint` on macOS. It checks source transports,
+For formula and cask changes, run `just check-tap` on macOS. It checks source transports,
 audits and styles the checkout, and runs cask livecheck. It binds the tap to the checkout;
 outside CI, set `HOMEBREW_TAP_BIND=1` explicitly and ensure no other tap occupies that path.
 CI updates Homebrew to the current stable release before validation and cask bumps.

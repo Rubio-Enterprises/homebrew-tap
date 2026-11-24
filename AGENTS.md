@@ -4,9 +4,9 @@
 
 Run project commands through `just`: image Checks run in the dev image, while Homebrew Checks run on macOS with isolated repository tools.
 
-In a fresh checkout: `just build`, then `just setup`. `just --list` shows the recipes.
+In a fresh checkout: `just build-dev`, then `just setup`. `just --list` shows the recipes.
 
-`just tap-lint` binds the tap to this checkout and requires `CI=true` or explicit `HOMEBREW_TAP_BIND=1`. It refuses to replace an existing tap.
+`just check-tap` binds the tap to this checkout and requires `CI=true` or explicit `HOMEBREW_TAP_BIND=1`. It refuses to replace an existing tap.
 
 ## Conventions
 
@@ -56,4 +56,4 @@ Use the source repo's bump path above: `:git` formulas update `tag:`/`revision:`
 
 For a new `:git` formula, merge it into the tap before pushing its first release tag. `bump-brew.yml` fails with `Formula/<name>.rb not found` rather than creating a formula. The initial formula must pin the full commit SHA the planned tag will reference. An empty revision disables Homebrew's tag-integrity check.
 
-After changes, run `just tap-lint` on macOS.
+After changes, run `just check-tap` on macOS.
