@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/Rubio-Enterprises/homebrew-tap/compare/v1.2.3...v2.0.0) (2026-11-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* adopt the shared recipe vocabulary ([#298](https://github.com/Rubio-Enterprises/homebrew-tap/issues/298))
+
+### Features
+
+* adopt the shared recipe vocabulary ([#298](https://github.com/Rubio-Enterprises/homebrew-tap/issues/298)) ([1e101ad](https://github.com/Rubio-Enterprises/homebrew-tap/commit/1e101ad8e6d30ef57e35218110db71fc788de052))
+
 ## [1.2.3](https://github.com/Rubio-Enterprises/homebrew-tap/compare/v1.2.2...v1.2.3) (2026-11-21)
 
 
