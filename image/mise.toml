@@ -3,7 +3,7 @@
 [tools]
 node = "24.22.3"
 # The source-transports Check runs a Ruby script; the Dev Container has no Ruby.
-ruby = "3.4.12"
+ruby = "4.0.9"
 "aqua:jdx/mise" = { version = "2026.11.8", os = ["macos"] }
 "aqua:realm/SwiftLint" = { version = "0.65.1", os = ["macos"] }
 "aqua:cpisciotta/xcbeautify" = { version = "3.2.1", os = ["macos"] }
