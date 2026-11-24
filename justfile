@@ -15,13 +15,13 @@ interactive := if path_exists('/opt/standards') == 'true' { '' } else { 'docker 
 _default:
     @just --list
 
-# Build dev container image
-build:
-    @if [ ! -d /opt/standards ]; then bin/build.sh; fi
+# Build the dev image
+build-dev:
+    @if [ ! -d /opt/standards ]; then bin/build-dev.sh; fi
 
 # Build the dev image, sync dependencies into volumes, and install git hooks
 [macos]
-setup: build setup-macos
+setup: build-dev setup-macos
 
 # Set up the macOS toolchain and shared config without requiring Docker
 [macos]
@@ -60,13 +60,16 @@ check:
 check-macos:
     if test -f bin/macos-env.sh; then . ./bin/macos-env.sh; fi; if git ls-files '*.swift' | grep -q .; then if test -x bin/check-swift.sh; then bin/check-swift.sh; else swiftlint lint --strict --config .standards/config/swiftlint.yml; fi; fi
     if test -d Formula || test -d Casks; then brew style; fi
+    if test -x bin/check-macos.sh; then if test -f bin/macos-env.sh; then . ./bin/macos-env.sh; fi; bin/check-macos.sh; fi
 
-# Validate this tap on macOS
+# Audit this tap with native Homebrew on macOS
+[group('host')]
 [macos]
-tap-lint:
-    bin/tap-lint.sh
+check-tap:
+    bin/check-tap.sh
 
-# Audit and bump outdated casks on macOS
+# Audit and bump outdated casks with native Homebrew on macOS
+[group('host')]
 [macos]
 bump-casks *args:
     bin/tap-bind.sh
@@ -82,6 +85,12 @@ fmt:
 check-pr:
     {{_run}} standards check-pr </dev/null
 
+# Regenerate the mise lock and every generated file
+generate *args:
+    @if [ -d /opt/standards ]; then standards lock; else docker run --rm -v "$PWD:$PWD" -w "$PWD" -e MISE_GITHUB_TOKEN -e GH_TOKEN "$(awk '/^FROM ghcr.io\/rubio-enterprises\/base:/ { print $2; exit }' Dockerfile)" standards lock </dev/null; fi
+    @if [ ! -d /opt/standards ]; then bin/build-dev.sh; fi
+    {{_run}} standards generate "$@" </dev/null
+
 # Open interactive shell inside the dev container
 shell:
     {{interactive}} bash
@@ -89,3 +98,7 @@ shell:
 # Execute arbitrary command inside the dev container
 exec *args:
     {{_run}} "$@" </dev/null
+
+# Run a command that reads its request from a pipe or heredoc
+pipe *args:
+    {{_run}} "$@"

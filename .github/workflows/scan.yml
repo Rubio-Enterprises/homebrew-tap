@@ -29,7 +29,7 @@ jobs:
           persist-credentials: false
       - uses: Rubio-Enterprises/.github/actions/setup-just@main
       - name: Validate tap
-        run: just tap-lint
+        run: just check-tap
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{ github.token }}
           XDG_CONFIG_HOME: ${{ runner.temp }}/tap-config
