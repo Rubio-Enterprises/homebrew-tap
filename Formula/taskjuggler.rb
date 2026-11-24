@@ -20,7 +20,8 @@ class Taskjuggler < Formula
   end
 
   test do
-    assert_match "tj3 (TaskJuggler) #{version.to_s.split("-").first}",
+    upstream_version = version.to_s.split("-").first
+    assert_match "tj3 (TaskJuggler) #{upstream_version}",
                  shell_output("#{bin}/tj3 --version")
     # Exercises the fork's htmljs report format, not just upstream scheduling.
     (testpath/"test.tjp").write <<~TJP
