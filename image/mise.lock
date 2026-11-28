@@ -37,14 +37,14 @@ url_api = "https://api.github.com/repos/evilmartians/lefthook/releases/assets/63
 provenance = "github-attestations"
 
 [[tools."aqua:jdx/mise"]]
-version = "2026.11.11"
+version = "2026.11.12"
 backend = "aqua:jdx/mise"
-specifiers = ["2026.11.11"]
+specifiers = ["2026.11.12"]
 
 [tools."aqua:jdx/mise"."platforms.macos-arm64"]
-checksum = "sha256:3a0b7a727d86bd15a64c6df9ef6531111a4741b07e6f1e2bb6f6bb5b09e2663f"
-url = "https://github.com/jdx/mise/releases/download/v2026.11.11/mise-v2026.11.11-macos-arm64.tar.gz"
-url_api = "https://api.github.com/repos/jdx/mise/releases/assets/772273513"
+checksum = "sha256:f7bd19aa4e6b7a58d7296f98e2c6af68b2e2643dfd608b0bc46c2b5fdbc8749b"
+url = "https://github.com/jdx/mise/releases/download/v2026.11.12/mise-v2026.11.12-macos-arm64.tar.gz"
+url_api = "https://api.github.com/repos/jdx/mise/releases/assets/775333316"
 provenance = "minisign"
 
 [[tools."aqua:mikefarah/yq"]]
